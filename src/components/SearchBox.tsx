@@ -67,7 +67,7 @@ const SearchBox = ({
           <MapPin className="w-5 h-5 text-muted-foreground flex-shrink-0" />
           <input
             type="text"
-            placeholder="Location (e.g., Delhi, Mumbai, Bengaluru)"
+            placeholder="Location (e.g., Hyderabad, Vijayawada, Visakhapatnam)"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             className={cn(
