@@ -80,6 +80,85 @@ export const hospitals: Hospital[] = [
     openHours: "9:00 AM - 7:00 PM",
     phone: "(555) 678-9012",
     specialty: ["Psychiatry", "Psychology"]
+  },
+  // Indian Hospitals
+  {
+    id: "7",
+    name: "Apollo Hospitals",
+    address: "Plot No.1, Film Nagar, Jubilee Hills, Hyderabad, Telangana",
+    distance: "1.5 km",
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.7,
+    ratingCount: 832,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 40 2360 7777",
+    specialty: ["Multi-Specialty", "Cardiology", "Oncology"]
+  },
+  {
+    id: "8",
+    name: "AIIMS Delhi",
+    address: "Sri Aurobindo Marg, Ansari Nagar, New Delhi, Delhi",
+    distance: "3.2 km",
+    image: "https://images.unsplash.com/photo-1587351021759-3772687fe598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+    rating: 4.9,
+    ratingCount: 1245,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 11 2658 8500",
+    specialty: ["Research", "Multi-Specialty", "Neurology"]
+  },
+  {
+    id: "9",
+    name: "Fortis Hospital",
+    address: "Sector 62, Phase-VIII, Mohali, Punjab",
+    distance: "2.7 km",
+    image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.5,
+    ratingCount: 678,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 172 5096 222",
+    specialty: ["Cardiology", "Orthopedics", "Gastroenterology"]
+  },
+  {
+    id: "10",
+    name: "Manipal Hospital",
+    address: "HAL Airport Road, Kodihalli, Bengaluru, Karnataka",
+    distance: "4.1 km",
+    image: "https://images.unsplash.com/photo-1519494080410-f9aa76cb4283?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80",
+    rating: 4.6,
+    ratingCount: 543,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 80 2502 4444",
+    specialty: ["Transplants", "Oncology", "Cardiology"]
+  },
+  {
+    id: "11",
+    name: "Tata Memorial Hospital",
+    address: "Dr. E Borges Road, Parel, Mumbai, Maharashtra",
+    distance: "5.8 km",
+    image: "https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.8,
+    ratingCount: 987,
+    open: true,
+    openHours: "8:00 AM - 5:00 PM",
+    phone: "+91 22 2417 7000",
+    specialty: ["Cancer Treatment", "Research", "Oncology"]
+  },
+  {
+    id: "12",
+    name: "Christian Medical College",
+    address: "Ida Scudder Road, Vellore, Tamil Nadu",
+    distance: "3.5 km",
+    image: "https://images.unsplash.com/photo-1596541223130-5d31a73fb6c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    rating: 4.7,
+    ratingCount: 756,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 416 228 3509",
+    specialty: ["Education", "Multi-Specialty", "Research"]
   }
 ];
 
@@ -120,4 +199,28 @@ export const getAllSpecialties = () => {
     });
   });
   return Array.from(specialties);
+};
+
+// Get hospitals by location
+export const getHospitalsByLocation = (lat: number, lng: number, radius: number = 10) => {
+  // In a real app, we would use the coordinates to calculate actual distances
+  // For this demo, we'll just sort the hospitals randomly and filter
+  
+  // Simulated function that would calculate real distances in a production app
+  const calculateDistance = (hospital: Hospital, userLat: number, userLng: number) => {
+    // This is a very simplified version - in real-world, use Haversine formula
+    // For now, return a random distance between 0.5 and 20 km
+    return Math.random() * 19.5 + 0.5;
+  };
+  
+  return hospitals.map(hospital => {
+    const calculatedDistance = calculateDistance(hospital, lat, lng);
+    return {
+      ...hospital,
+      distance: `${calculatedDistance.toFixed(1)} km`,
+      actualDistance: calculatedDistance // for sorting
+    };
+  })
+  .filter(hospital => hospital.actualDistance <= radius)
+  .sort((a, b) => (a.actualDistance || 0) - (b.actualDistance || 0));
 };
