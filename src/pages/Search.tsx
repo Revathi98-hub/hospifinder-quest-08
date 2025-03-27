@@ -2,26 +2,36 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter, MapPin } from "lucide-react";
+import { Filter, MapPin, Building } from "lucide-react";
 import SearchBox from "@/components/SearchBox";
 import HospitalCard from "@/components/HospitalCard";
 import { searchHospitals, getAllSpecialties } from "@/data/hospitalData";
 import { cn } from "@/lib/utils";
+import { Checkbox } from "@/components/ui/checkbox";
+import { getAllStates, getDistrictsByState } from "@/data/locationData";
 
 const Search = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const initialQuery = queryParams.get("query") || "";
   const initialLocation = queryParams.get("location") || "";
+  const initialState = queryParams.get("state") || "";
+  const initialDistrict = queryParams.get("district") || "";
   
   const [query, setQuery] = useState(initialQuery);
   const [locationQuery, setLocationQuery] = useState(initialLocation);
-  const [results, setResults] = useState(searchHospitals(initialQuery, initialLocation));
+  const [selectedState, setSelectedState] = useState(initialState);
+  const [selectedDistrict, setSelectedDistrict] = useState(initialDistrict);
+  const [results, setResults] = useState(searchHospitals(initialQuery, initialLocation, initialState, initialDistrict));
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
+  const [isStatesFilterOpen, setIsStatesFilterOpen] = useState(false);
+  const [selectedStates, setSelectedStates] = useState<string[]>(initialState ? [initialState] : []);
+  const [selectedDistricts, setSelectedDistricts] = useState<{[state: string]: string[]}>({});
   const [isLoaded, setIsLoaded] = useState(false);
   
   const allSpecialties = getAllSpecialties();
+  const allStates = getAllStates();
   
   useEffect(() => {
     setIsLoaded(true);
@@ -32,11 +42,26 @@ const Search = () => {
     const queryParams = new URLSearchParams(location.search);
     const newQuery = queryParams.get("query") || "";
     const newLocation = queryParams.get("location") || "";
+    const newState = queryParams.get("state") || "";
+    const newDistrict = queryParams.get("district") || "";
     
     setQuery(newQuery);
     setLocationQuery(newLocation);
+    setSelectedState(newState);
+    setSelectedDistrict(newDistrict);
     
-    let filtered = searchHospitals(newQuery, newLocation);
+    if (newState && !selectedStates.includes(newState)) {
+      setSelectedStates(prev => [...prev, newState]);
+    }
+    
+    if (newState && newDistrict) {
+      setSelectedDistricts(prev => ({
+        ...prev,
+        [newState]: [...(prev[newState] || []), newDistrict]
+      }));
+    }
+    
+    let filtered = searchHospitals(newQuery, newLocation, newState, newDistrict);
     
     // Apply specialty filter if any are selected
     if (selectedSpecialties.length > 0) {
@@ -48,19 +73,23 @@ const Search = () => {
     setResults(filtered);
   }, [location.search, selectedSpecialties]);
   
-  const handleSearch = (newQuery: string, newLocation: string) => {
+  const handleSearch = (newQuery: string, newLocation: string, newState?: string, newDistrict?: string) => {
     setQuery(newQuery);
     setLocationQuery(newLocation);
+    setSelectedState(newState || "");
+    setSelectedDistrict(newDistrict || "");
     
     // Update URL with search parameters
     const searchParams = new URLSearchParams();
     if (newQuery) searchParams.append("query", newQuery);
     if (newLocation) searchParams.append("location", newLocation);
+    if (newState) searchParams.append("state", newState);
+    if (newDistrict) searchParams.append("district", newDistrict);
     
     window.history.pushState({}, "", `${location.pathname}?${searchParams.toString()}`);
     
     // Perform search
-    setResults(searchHospitals(newQuery, newLocation));
+    setResults(searchHospitals(newQuery, newLocation, newState, newDistrict));
   };
   
   const toggleSpecialty = (specialty: string) => {
@@ -71,23 +100,98 @@ const Search = () => {
     );
   };
   
+  const toggleState = (state: string) => {
+    setSelectedStates(prev => {
+      if (prev.includes(state)) {
+        // Remove state and its districts
+        const newStates = prev.filter(s => s !== state);
+        const newDistricts = { ...selectedDistricts };
+        delete newDistricts[state];
+        setSelectedDistricts(newDistricts);
+        return newStates;
+      } else {
+        return [...prev, state];
+      }
+    });
+  };
+  
+  const toggleDistrict = (state: string, district: string) => {
+    setSelectedDistricts(prev => {
+      const stateDistricts = prev[state] || [];
+      
+      if (stateDistricts.includes(district)) {
+        return {
+          ...prev,
+          [state]: stateDistricts.filter(d => d !== district)
+        };
+      } else {
+        return {
+          ...prev,
+          [state]: [...stateDistricts, district]
+        };
+      }
+    });
+  };
+  
+  // Apply filters (states and districts)
+  useEffect(() => {
+    // Skip on initial load
+    if (!isLoaded) return;
+    
+    let filtered = searchHospitals(query, locationQuery);
+    
+    // Filter by selected states and districts
+    if (selectedStates.length > 0) {
+      filtered = filtered.filter(hospital => {
+        const hospitalState = hospital.address.split(', ').pop();
+        
+        // Check if hospital's state is in selected states
+        if (!hospitalState || !selectedStates.some(state => hospitalState.includes(state))) {
+          return false;
+        }
+        
+        // If state has selected districts, check those too
+        const state = selectedStates.find(state => hospitalState.includes(state));
+        if (state && selectedDistricts[state]?.length > 0) {
+          const hospitalDistrict = hospital.address.split(', ')[0];
+          return selectedDistricts[state].some(district => 
+            hospitalDistrict.includes(district)
+          );
+        }
+        
+        return true;
+      });
+    }
+    
+    // Apply specialty filter
+    if (selectedSpecialties.length > 0) {
+      filtered = filtered.filter(hospital => 
+        hospital.specialty?.some(spec => selectedSpecialties.includes(spec))
+      );
+    }
+    
+    setResults(filtered);
+  }, [selectedStates, selectedDistricts, selectedSpecialties, isLoaded]);
+  
   return (
     <div className="min-h-screen pb-20 pt-24">
       <div className="container-custom">
         <div className="sticky top-20 z-30 pt-6 pb-4 bg-background">
           <SearchBox 
             onSearch={handleSearch}
-            className="mb-6 shadow-sm" 
+            className="mb-6 shadow-sm"
+            initialState={selectedState}
+            initialDistrict={selectedDistrict}
           />
           
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center">
+            <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
                 className="flex items-center space-x-2 btn-secondary"
               >
                 <Filter className="w-4 h-4" />
-                <span>Filters</span>
+                <span>Specialties</span>
                 {selectedSpecialties.length > 0 && (
                   <span className="ml-2 w-5 h-5 rounded-full bg-medical-500 text-white text-xs flex items-center justify-center">
                     {selectedSpecialties.length}
@@ -95,12 +199,29 @@ const Search = () => {
                 )}
               </button>
               
-              {selectedSpecialties.length > 0 && (
+              <button
+                onClick={() => setIsStatesFilterOpen(!isStatesFilterOpen)}
+                className="flex items-center space-x-2 btn-secondary"
+              >
+                <Building className="w-4 h-4" />
+                <span>States & Districts</span>
+                {selectedStates.length > 0 && (
+                  <span className="ml-2 w-5 h-5 rounded-full bg-medical-500 text-white text-xs flex items-center justify-center">
+                    {selectedStates.length}
+                  </span>
+                )}
+              </button>
+              
+              {(selectedSpecialties.length > 0 || selectedStates.length > 0) && (
                 <button
-                  onClick={() => setSelectedSpecialties([])}
-                  className="ml-4 text-sm text-medical-600 hover:text-medical-700 transition-colors"
+                  onClick={() => {
+                    setSelectedSpecialties([]);
+                    setSelectedStates([]);
+                    setSelectedDistricts({});
+                  }}
+                  className="text-sm text-medical-600 hover:text-medical-700 transition-colors"
                 >
-                  Clear filters
+                  Clear all filters
                 </button>
               )}
             </div>
@@ -135,6 +256,59 @@ const Search = () => {
                       >
                         {specialty}
                       </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+            
+            {isStatesFilterOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="overflow-hidden mt-4"
+              >
+                <div className="border rounded-lg p-4 bg-background/80 backdrop-blur-sm">
+                  <h3 className="font-medium mb-3">States & Districts</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {allStates.map(state => (
+                      <div key={state} className="space-y-2">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox 
+                            id={`state-${state}`} 
+                            checked={selectedStates.includes(state)}
+                            onCheckedChange={() => toggleState(state)}
+                          />
+                          <label 
+                            htmlFor={`state-${state}`}
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            {state}
+                          </label>
+                        </div>
+                        
+                        {selectedStates.includes(state) && (
+                          <div className="pl-6 space-y-1 max-h-32 overflow-y-auto">
+                            {getDistrictsByState(state).map(district => (
+                              <div key={district} className="flex items-center space-x-2">
+                                <Checkbox 
+                                  id={`district-${state}-${district}`} 
+                                  checked={(selectedDistricts[state] || []).includes(district)}
+                                  onCheckedChange={() => toggleDistrict(state, district)}
+                                />
+                                <label 
+                                  htmlFor={`district-${state}-${district}`}
+                                  className="text-xs leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                >
+                                  {district}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     ))}
                   </div>
                 </div>
