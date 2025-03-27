@@ -30,7 +30,7 @@ const SearchBox = ({
 
   // Update districts when state changes
   useEffect(() => {
-    if (selectedState) {
+    if (selectedState && selectedState !== "all_states") {
       setAvailableDistricts(getDistrictsByState(selectedState));
       // Reset district if state changes
       if (!initialDistrict) {
@@ -47,19 +47,23 @@ const SearchBox = ({
     
     // Format location string based on state and district
     let locationString = "";
-    if (selectedDistrict && selectedState) {
+    if (selectedDistrict && selectedDistrict !== "all_districts" && selectedState && selectedState !== "all_states") {
       locationString = `${selectedDistrict}, ${selectedState}`;
-    } else if (selectedState) {
+    } else if (selectedState && selectedState !== "all_states") {
       locationString = selectedState;
     }
     
+    // Ensure we're using the actual state and district values, not "all_states" or "all_districts"
+    const stateParam = selectedState === "all_states" ? "" : selectedState;
+    const districtParam = selectedDistrict === "all_districts" ? "" : selectedDistrict;
+    
     if (onSearch) {
-      onSearch(locationString, selectedState, selectedDistrict);
+      onSearch(locationString, stateParam, districtParam);
     } else {
       const searchParams = new URLSearchParams();
       if (locationString) searchParams.append("location", locationString);
-      if (selectedState) searchParams.append("state", selectedState);
-      if (selectedDistrict) searchParams.append("district", selectedDistrict);
+      if (stateParam) searchParams.append("state", stateParam);
+      if (districtParam) searchParams.append("district", districtParam);
       
       navigate(`/search?${searchParams.toString()}`);
     }
@@ -97,7 +101,7 @@ const SearchBox = ({
           </SelectContent>
         </Select>
         
-        {selectedState && (
+        {selectedState && selectedState !== "all_states" && (
           <Select value={selectedDistrict} onValueChange={setSelectedDistrict}>
             <SelectTrigger 
               className={cn(

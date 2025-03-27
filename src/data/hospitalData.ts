@@ -1,3 +1,4 @@
+
 import { Hospital } from "@/components/HospitalCard";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
 
@@ -501,17 +502,19 @@ export const searchHospitals = (query: string, location: string, state?: string,
   }
   
   // Filter by state
-  if (state) {
+  if (state && state !== "all_states") {
     filteredHospitals = filteredHospitals.filter(
       hospital => hospital.address.includes(state)
     );
   }
   
-  // Filter by district
-  if (district) {
-    filteredHospitals = filteredHospitals.filter(
-      hospital => hospital.address.includes(district)
-    );
+  // Filter by district - improved to handle cases like "West Godavari" and "East Godavari"
+  if (district && district !== "all_districts") {
+    filteredHospitals = filteredHospitals.filter(hospital => {
+      // Split address to check both the first part (usually district) and the whole address
+      const addressParts = hospital.address.split(', ');
+      return addressParts[0].includes(district) || hospital.address.includes(district);
+    });
   }
   
   return filteredHospitals;
