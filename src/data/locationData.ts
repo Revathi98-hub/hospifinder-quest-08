@@ -1,3 +1,4 @@
+
 // Indian states and their districts
 export interface LocationData {
   state: string;
@@ -66,12 +67,28 @@ export const indianLocations: LocationData[] = [
     districts: ["Ahmednagar", "Aurangabad", "Jalgaon", "Kolhapur", "Mumbai", "Nagpur", "Nashik", "Pune", "Thane", "Wardha"]
   },
   {
+    state: "Punjab",
+    districts: ["Amritsar", "Bathinda", "Faridkot", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Ludhiana", "Mohali", "Patiala", "Rupnagar"]
+  },
+  {
     state: "Rajasthan",
     districts: ["Ajmer", "Alwar", "Bikaner", "Bhilwara", "Jaipur", "Jaisalmer", "Jodhpur", "Kota", "Sikar", "Udaipur"]
   },
   {
+    state: "Tamil Nadu",
+    districts: ["Chennai", "Coimbatore", "Cuddalore", "Erode", "Kanchipuram", "Madurai", "Salem", "Thanjavur", "Tirunelveli", "Vellore"]
+  },
+  {
     state: "Telangana",
     districts: ["Adilabad", "Hyderabad", "Jagtial", "Karimnagar", "Khammam", "Mahabubnagar", "Medchal-Malkajgiri", "Nalgonda", "Rangareddy", "Warangal"]
+  },
+  {
+    state: "Uttar Pradesh",
+    districts: ["Agra", "Allahabad", "Aligarh", "Bareilly", "Ghaziabad", "Kanpur", "Lucknow", "Meerut", "Moradabad", "Varanasi"]
+  },
+  {
+    state: "West Bengal",
+    districts: ["Bankura", "Birbhum", "Cooch Behar", "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Kolkata", "Malda", "Purulia"]
   }
 ];
 
