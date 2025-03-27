@@ -15,6 +15,7 @@ export interface Hospital {
   openHours: string;
   phone: string;
   specialty?: string[];
+  hospitalType?: "government" | "private"; // Added hospital type
 }
 
 interface HospitalCardProps {

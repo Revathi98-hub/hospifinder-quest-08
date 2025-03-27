@@ -3,9 +3,9 @@ import { getAllStates, getDistrictsByState } from "@/data/locationData";
 
 // Mock hospital data for Indian hospitals
 export const hospitals: Hospital[] = [
-  // Andhra Pradesh
+  // Visakhapatnam - Government Hospitals
   {
-    id: "1",
+    id: "gov1",
     name: "King George Hospital (KGH)",
     address: "Visakhapatnam, Andhra Pradesh",
     distance: "1.2 km",
@@ -15,8 +15,123 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2564891",
-    specialty: ["General Medicine", "Emergency", "Surgery"]
+    specialty: ["General Medicine", "Emergency", "Surgery"],
+    hospitalType: "government"
   },
+  {
+    id: "gov2",
+    name: "Government Victoria Hospital",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "1.8 km",
+    image: "https://images.unsplash.com/photo-1578991624414-df826339aca0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+    rating: 4.2,
+    ratingCount: 419,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 891 2754328",
+    specialty: ["General Medicine", "Gynecology", "Pediatrics"],
+    hospitalType: "government"
+  },
+  {
+    id: "gov3",
+    name: "Government Hospital for Mental Care",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "2.3 km",
+    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    rating: 4.1,
+    ratingCount: 286,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 891 2566652",
+    specialty: ["Psychiatry", "Mental Health", "Counseling"],
+    hospitalType: "government"
+  },
+  {
+    id: "gov4",
+    name: "Government TB and Chest Hospital",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "3.5 km",
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.0,
+    ratingCount: 207,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 891 2553241",
+    specialty: ["Pulmonology", "TB Treatment", "Respiratory Care"],
+    hospitalType: "government"
+  },
+  {
+    id: "gov5",
+    name: "Government ENT Hospital",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "2.7 km",
+    image: "https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.3,
+    ratingCount: 312,
+    open: true,
+    openHours: "8:00 AM - 5:00 PM",
+    phone: "+91 891 2564128",
+    specialty: ["ENT", "Audiology", "Speech Therapy"],
+    hospitalType: "government"
+  },
+  {
+    id: "gov6",
+    name: "Government Regional Eye Hospital",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "3.1 km",
+    image: "https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    rating: 4.4,
+    ratingCount: 378,
+    open: true,
+    openHours: "8:00 AM - 4:00 PM",
+    phone: "+91 891 2567823",
+    specialty: ["Ophthalmology", "Eye Surgery", "Vision Care"],
+    hospitalType: "government"
+  },
+  {
+    id: "gov7",
+    name: "Rani Chandramani Devi Government Hospital",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "4.2 km",
+    image: "https://images.unsplash.com/photo-1587351021759-3772687fe598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+    rating: 4.2,
+    ratingCount: 265,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 891 2789456",
+    specialty: ["Women's Health", "Gynecology", "Obstetrics"],
+    hospitalType: "government"
+  },
+  {
+    id: "gov8",
+    name: "Government Hospital for Chest and Communicable Diseases",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "3.8 km",
+    image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.1,
+    ratingCount: 198,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 891 2563247",
+    specialty: ["Infectious Diseases", "Pulmonology", "General Medicine"],
+    hospitalType: "government"
+  },
+  {
+    id: "gov9",
+    name: "Homi Bhabha Cancer Hospital & Research Centre",
+    address: "Visakhapatnam, Andhra Pradesh",
+    distance: "5.3 km",
+    image: "https://images.unsplash.com/photo-1596541223130-5d31a73fb6c6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    rating: 4.7,
+    ratingCount: 432,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 891 2876543",
+    specialty: ["Oncology", "Cancer Treatment", "Radiation Therapy"],
+    hospitalType: "government"
+  },
+  
+  // Visakhapatnam - Private Hospitals (existing with hospitalType added)
   {
     id: "2",
     name: "Apollo Hospitals",
@@ -28,7 +143,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2727272",
-    specialty: ["Multi-Specialty", "Cardiology", "Oncology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Oncology"],
+    hospitalType: "private"
   },
   {
     id: "3",
@@ -41,7 +157,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 3041111",
-    specialty: ["Multi-Specialty", "Nephrology", "Cardiology"]
+    specialty: ["Multi-Specialty", "Nephrology", "Cardiology"],
+    hospitalType: "private"
   },
   {
     id: "4",
@@ -54,7 +171,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2867890",
-    specialty: ["Multi-Specialty", "Orthopedics", "Neurology"]
+    specialty: ["Multi-Specialty", "Orthopedics", "Neurology"],
+    hospitalType: "private"
   },
   {
     id: "5",
@@ -67,7 +185,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2566777",
-    specialty: ["General Medicine", "Gynecology", "Pediatrics"]
+    specialty: ["General Medicine", "Gynecology", "Pediatrics"],
+    hospitalType: "private"
   },
   {
     id: "6",
@@ -80,7 +199,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2505944",
-    specialty: ["Multi-Specialty", "Cardiology", "Pulmonology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Pulmonology"],
+    hospitalType: "private"
   },
   {
     id: "7",
@@ -93,7 +213,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2567888",
-    specialty: ["Multi-Specialty", "Cardiology", "Gastroenterology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Gastroenterology"],
+    hospitalType: "private"
   },
   {
     id: "8",
@@ -106,7 +227,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2868686",
-    specialty: ["Multi-Specialty", "Oncology", "Urology"]
+    specialty: ["Multi-Specialty", "Oncology", "Urology"],
+    hospitalType: "private"
   },
   {
     id: "9",
@@ -119,7 +241,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2797979",
-    specialty: ["General Medicine", "Orthopedics", "ENT"]
+    specialty: ["General Medicine", "Orthopedics", "ENT"],
+    hospitalType: "private"
   },
   {
     id: "10",
@@ -132,8 +255,10 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 891 2766666",
-    specialty: ["General Medicine", "Gynecology", "Pediatrics"]
+    specialty: ["General Medicine", "Gynecology", "Pediatrics"],
+    hospitalType: "private"
   },
+  
   // Additional Andhra Pradesh hospitals in different districts
   {
     id: "17",
@@ -146,7 +271,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 866 2845555",
-    specialty: ["Multi-Specialty", "Cardiology", "Neurology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Neurology"],
+    hospitalType: "private"
   },
   {
     id: "18",
@@ -159,7 +285,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 866 2574115",
-    specialty: ["General Medicine", "Emergency", "Pediatrics"]
+    specialty: ["General Medicine", "Emergency", "Pediatrics"],
+    hospitalType: "government"
   },
   {
     id: "19",
@@ -172,7 +299,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 861 2345678",
-    specialty: ["Multi-Specialty", "Cardiology", "Orthopedics"]
+    specialty: ["Multi-Specialty", "Cardiology", "Orthopedics"],
+    hospitalType: "private"
   },
   // West Godavari hospitals
   {
@@ -186,7 +314,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2432555",
-    specialty: ["Multi-Specialty", "Cardiology", "Neurology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Neurology"],
+    hospitalType: "private"
   },
   {
     id: "21",
@@ -199,7 +328,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2456789",
-    specialty: ["General Medicine", "Gynecology", "Pediatrics"]
+    specialty: ["General Medicine", "Gynecology", "Pediatrics"],
+    hospitalType: "private"
   },
   {
     id: "22",
@@ -212,7 +342,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2465432",
-    specialty: ["General Medicine", "Surgery", "Orthopedics"]
+    specialty: ["General Medicine", "Surgery", "Orthopedics"],
+    hospitalType: "private"
   },
   {
     id: "23",
@@ -225,7 +356,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2476543",
-    specialty: ["General Medicine", "Emergency", "Pediatrics"]
+    specialty: ["General Medicine", "Emergency", "Pediatrics"],
+    hospitalType: "private"
   },
   {
     id: "24",
@@ -238,7 +370,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2487654",
-    specialty: ["Multi-Specialty", "Cardiology", "Neurology", "Orthopedics"]
+    specialty: ["Multi-Specialty", "Cardiology", "Neurology", "Orthopedics"],
+    hospitalType: "private"
   },
   {
     id: "25",
@@ -251,7 +384,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2498765",
-    specialty: ["Multi-Specialty", "Cardiology", "Gastroenterology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Gastroenterology"],
+    hospitalType: "private"
   },
   {
     id: "26",
@@ -264,7 +398,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2412345",
-    specialty: ["General Medicine", "Pediatrics", "Gynecology"]
+    specialty: ["General Medicine", "Pediatrics", "Gynecology"],
+    hospitalType: "private"
   },
   {
     id: "27",
@@ -277,7 +412,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2423456",
-    specialty: ["General Medicine", "Surgery", "Orthopedics"]
+    specialty: ["General Medicine", "Surgery", "Orthopedics"],
+    hospitalType: "private"
   },
   {
     id: "28",
@@ -290,7 +426,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "9:00 AM - 7:00 PM",
     phone: "+91 883 2434567",
-    specialty: ["Ophthalmology", "Eye Surgery"]
+    specialty: ["Ophthalmology", "Eye Surgery"],
+    hospitalType: "private"
   },
   {
     id: "29",
@@ -303,7 +440,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 883 2445678",
-    specialty: ["Oncology", "Cancer Treatment", "General Medicine"]
+    specialty: ["Oncology", "Cancer Treatment", "General Medicine"],
+    hospitalType: "private"
   },
   
   // East Godavari hospitals - Updated with clearer district names
@@ -318,7 +456,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 884 2456789",
-    specialty: ["Multi-Specialty", "Medical Education", "Research"]
+    specialty: ["Multi-Specialty", "Medical Education", "Research"],
+    hospitalType: "private"
   },
   {
     id: "31",
@@ -331,7 +470,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 884 2467890",
-    specialty: ["Multi-Specialty", "Cardiology", "Neurology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Neurology"],
+    hospitalType: "private"
   },
   {
     id: "32",
@@ -344,7 +484,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 884 2478901",
-    specialty: ["General Medicine", "Pediatrics", "Gynecology"]
+    specialty: ["General Medicine", "Pediatrics", "Gynecology"],
+    hospitalType: "private"
   },
   {
     id: "33",
@@ -357,7 +498,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 884 2489012",
-    specialty: ["Multi-Specialty", "Cardiology", "Oncology", "Neurology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Oncology", "Neurology"],
+    hospitalType: "private"
   },
   {
     id: "34",
@@ -370,7 +512,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 884 2490123",
-    specialty: ["General Medicine", "Surgery", "Emergency"]
+    specialty: ["General Medicine", "Surgery", "Emergency"],
+    hospitalType: "private"
   },
   {
     id: "35",
@@ -383,7 +526,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 884 2401234",
-    specialty: ["Multi-Specialty", "Cardiology", "Nephrology", "Urology"]
+    specialty: ["Multi-Specialty", "Cardiology", "Nephrology", "Urology"],
+    hospitalType: "private"
   },
   {
     id: "36",
@@ -396,7 +540,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 884 2412345",
-    specialty: ["Multi-Specialty", "Cardiology", "Neurology", "Orthopedics"]
+    specialty: ["Multi-Specialty", "Cardiology", "Neurology", "Orthopedics"],
+    hospitalType: "private"
   },
   
   // Other major Indian cities
@@ -411,7 +556,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 40 2360 7777",
-    specialty: ["Multi-Specialty", "Cardiac Sciences", "Transplants"]
+    specialty: ["Multi-Specialty", "Cardiac Sciences", "Transplants"],
+    hospitalType: "private"
   },
   {
     id: "12",
@@ -424,7 +570,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 11 2658 8500",
-    specialty: ["Research", "Multi-Specialty", "Neurology"]
+    specialty: ["Research", "Multi-Specialty", "Neurology"],
+    hospitalType: "private"
   },
   {
     id: "13",
@@ -437,7 +584,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "8:00 AM - 5:00 PM",
     phone: "+91 22 2417 7000",
-    specialty: ["Cancer Treatment", "Research", "Oncology"]
+    specialty: ["Cancer Treatment", "Research", "Oncology"],
+    hospitalType: "private"
   },
   {
     id: "14",
@@ -450,7 +598,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 80 6621 4444",
-    specialty: ["Multi-Specialty", "Cardiac Sciences", "Neurosciences"]
+    specialty: ["Multi-Specialty", "Cardiac Sciences", "Neurosciences"],
+    hospitalType: "private"
   },
   {
     id: "15",
@@ -463,7 +612,8 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 124 4141 414",
-    specialty: ["Multi-Specialty", "Liver Transplant", "Cardiac Sciences"]
+    specialty: ["Multi-Specialty", "Liver Transplant", "Cardiac Sciences"],
+    hospitalType: "private"
   },
   {
     id: "16",
@@ -476,12 +626,13 @@ export const hospitals: Hospital[] = [
     open: true,
     openHours: "24 hours",
     phone: "+91 120 4222 222",
-    specialty: ["Multi-Specialty", "Oncology", "Neurology"]
+    specialty: ["Multi-Specialty", "Oncology", "Neurology"],
+    hospitalType: "private"
   }
 ];
 
 // Function to filter hospitals based on search criteria
-export const searchHospitals = (query: string, location: string, state?: string, district?: string) => {
+export const searchHospitals = (query: string, location: string, state?: string, district?: string, hospitalType?: string) => {
   let filteredHospitals = [...hospitals];
   
   if (query) {
@@ -507,13 +658,20 @@ export const searchHospitals = (query: string, location: string, state?: string,
     );
   }
   
-  // Filter by district - improved to handle cases like "West Godavari" and "East Godavari"
+  // Filter by district
   if (district && district !== "all_districts") {
     filteredHospitals = filteredHospitals.filter(hospital => {
       // Split address to check both the first part (usually district) and the whole address
       const addressParts = hospital.address.split(', ');
       return addressParts[0].includes(district) || hospital.address.includes(district);
     });
+  }
+  
+  // Filter by hospital type
+  if (hospitalType) {
+    filteredHospitals = filteredHospitals.filter(
+      hospital => hospital.hospitalType === hospitalType
+    );
   }
   
   return filteredHospitals;
