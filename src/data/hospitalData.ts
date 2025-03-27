@@ -1,4 +1,3 @@
-
 import { Hospital } from "@/components/HospitalCard";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
 
@@ -307,11 +306,11 @@ export const hospitals: Hospital[] = [
     specialty: ["Oncology", "Cancer Treatment", "General Medicine"]
   },
   
-  // East Godavari hospitals
+  // East Godavari hospitals - Updated with clearer district names
   {
     id: "30",
     name: "GSL Medical College and General Hospital",
-    address: "Rajahmundry, East Godavari, Andhra Pradesh",
+    address: "East Godavari, Andhra Pradesh",
     distance: "2.3 km",
     image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80",
     rating: 4.5,
@@ -324,7 +323,7 @@ export const hospitals: Hospital[] = [
   {
     id: "31",
     name: "Sri Venkateswara Hospitals",
-    address: "Rajahmundry, East Godavari, Andhra Pradesh",
+    address: "East Godavari, Andhra Pradesh",
     distance: "3.1 km",
     image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2053&q=80",
     rating: 4.3,
@@ -337,7 +336,7 @@ export const hospitals: Hospital[] = [
   {
     id: "32",
     name: "Sri Srinivasa Hospitals",
-    address: "Rajahmundry, East Godavari, Andhra Pradesh",
+    address: "East Godavari, Andhra Pradesh",
     distance: "2.8 km",
     image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
     rating: 4.2,
@@ -350,7 +349,7 @@ export const hospitals: Hospital[] = [
   {
     id: "33",
     name: "Apollo Hospital",
-    address: "Kakinada, East Godavari, Andhra Pradesh",
+    address: "East Godavari, Andhra Pradesh",
     distance: "3.5 km",
     image: "https://images.unsplash.com/photo-1587351021759-3772687fe598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
     rating: 4.7,
@@ -363,7 +362,7 @@ export const hospitals: Hospital[] = [
   {
     id: "34",
     name: "Trust Hospital",
-    address: "Kakinada, East Godavari, Andhra Pradesh",
+    address: "East Godavari, Andhra Pradesh",
     distance: "2.9 km",
     image: "https://images.unsplash.com/photo-1626315869436-d6781ba69d6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     rating: 4.1,
@@ -376,7 +375,7 @@ export const hospitals: Hospital[] = [
   {
     id: "35",
     name: "Pragati Super Speciality Hospital",
-    address: "Rajahmundry, East Godavari, Andhra Pradesh",
+    address: "East Godavari, Andhra Pradesh",
     distance: "4.2 km",
     image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
     rating: 4.4,
@@ -389,7 +388,7 @@ export const hospitals: Hospital[] = [
   {
     id: "36",
     name: "KIMS Hospital",
-    address: "Rajahmundry, East Godavari, Andhra Pradesh",
+    address: "East Godavari, Andhra Pradesh",
     distance: "3.7 km",
     image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     rating: 4.6,
