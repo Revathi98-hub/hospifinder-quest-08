@@ -700,6 +700,106 @@ export const hospitals: Hospital[] = [
     hospitalType: "private"
   },
   
+  // East Godavari - Government Hospitals (newly added)
+  {
+    id: "east_gov1",
+    name: "Government General Hospital, Kakinada",
+    address: "East Godavari, Andhra Pradesh",
+    distance: "2.5 km",
+    image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80",
+    rating: 4.4,
+    ratingCount: 312,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 884 2361234",
+    specialty: ["General Medicine", "Surgery", "Emergency", "Orthopedics"],
+    hospitalType: "government"
+  },
+  {
+    id: "east_gov2",
+    name: "Government General Hospital, Rajamahendravaram",
+    address: "East Godavari, Andhra Pradesh",
+    distance: "3.2 km",
+    image: "https://images.unsplash.com/photo-1578991624414-df826339aca0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80",
+    rating: 4.3,
+    ratingCount: 287,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 883 2472345",
+    specialty: ["General Medicine", "Emergency", "Surgery", "Gynecology"],
+    hospitalType: "government"
+  },
+  {
+    id: "east_gov3",
+    name: "Area Hospital, Amalapuram",
+    address: "East Godavari, Andhra Pradesh",
+    distance: "2.8 km",
+    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    rating: 4.1,
+    ratingCount: 203,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 884 2583456",
+    specialty: ["General Medicine", "Emergency", "Primary Care"],
+    hospitalType: "government"
+  },
+  {
+    id: "east_gov4",
+    name: "Area Hospital, Tuni",
+    address: "East Godavari, Andhra Pradesh",
+    distance: "3.5 km",
+    image: "https://images.unsplash.com/photo-1587351021759-3772687fe598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80",
+    rating: 4.0,
+    ratingCount: 178,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 884 2594567",
+    specialty: ["General Medicine", "Emergency", "Primary Care"],
+    hospitalType: "government"
+  },
+  {
+    id: "east_gov5",
+    name: "Area Hospital, Ramachandrapuram",
+    address: "East Godavari, Andhra Pradesh",
+    distance: "2.6 km",
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.2,
+    ratingCount: 195,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 884 2605678",
+    specialty: ["General Medicine", "Emergency", "Primary Care"],
+    hospitalType: "government"
+  },
+  {
+    id: "east_gov6",
+    name: "Area Hospital, Anaparthi",
+    address: "East Godavari, Andhra Pradesh",
+    distance: "3.3 km",
+    image: "https://images.unsplash.com/photo-1551076805-e1869033e561?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 3.9,
+    ratingCount: 156,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 884 2616789",
+    specialty: ["General Medicine", "Emergency", "Primary Care"],
+    hospitalType: "government"
+  },
+  {
+    id: "east_gov7",
+    name: "Area Hospital, Rampachodavaram",
+    address: "East Godavari, Andhra Pradesh",
+    distance: "4.2 km",
+    image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80",
+    rating: 4.0,
+    ratingCount: 183,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 884 2627890",
+    specialty: ["General Medicine", "Emergency", "Primary Care"],
+    hospitalType: "government"
+  },
+  
   // Other major Indian cities
   {
     id: "11",
