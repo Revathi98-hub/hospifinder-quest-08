@@ -10,6 +10,7 @@ import { nelloreHospitals } from "./hospitals/nellore";
 import { krishnaHospitals } from "./hospitals/krishna";
 import { kurnoolHospitals } from "./hospitals/kurnool";
 import { anantapurHospitals } from "./hospitals/anantapur";
+import { gunturHospitals } from "./hospitals/guntur";
 import { 
   getHospitalById as getHospitalByIdUtil,
   searchHospitals as searchHospitalsUtil,
@@ -27,7 +28,8 @@ export const hospitals: Hospital[] = [
   ...nelloreHospitals,
   ...krishnaHospitals,
   ...kurnoolHospitals,
-  ...anantapurHospitals
+  ...anantapurHospitals,
+  ...gunturHospitals
 ];
 
 // Function to get hospital by ID
