@@ -5,8 +5,6 @@ import { MapPin, Loader2, Navigation } from "lucide-react";
 import HospitalCard from "@/components/HospitalCard";
 import { hospitals, getHospitalsByLocation } from "@/data/hospitalData";
 import { toast } from "@/components/ui/use-toast";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 
 const NearMe = () => {
@@ -15,9 +13,7 @@ const NearMe = () => {
   const [nearbyHospitals, setNearbyHospitals] = useState(hospitals);
   const [isLoaded, setIsLoaded] = useState(false);
   const [userCoordinates, setUserCoordinates] = useState<{lat: number, lng: number} | null>(null);
-  const [googleMapsApiKey, setGoogleMapsApiKey] = useState<string>(localStorage.getItem('googleMapsApiKey') || '');
   const [searchRadius, setSearchRadius] = useState<number>(5);
-  const [showApiKeyInput, setShowApiKeyInput] = useState<boolean>(!localStorage.getItem('googleMapsApiKey'));
   
   useEffect(() => {
     setIsLoaded(true);
@@ -29,23 +25,6 @@ const NearMe = () => {
     
     return () => clearTimeout(timer);
   }, []);
-  
-  const saveApiKey = () => {
-    if (googleMapsApiKey) {
-      localStorage.setItem('googleMapsApiKey', googleMapsApiKey);
-      setShowApiKeyInput(false);
-      toast({
-        title: "API Key Saved",
-        description: "Your Google Maps API key has been saved.",
-      });
-    } else {
-      toast({
-        title: "API Key Required",
-        description: "Please enter a valid API key.",
-        variant: "destructive"
-      });
-    }
-  };
 
   const handleGetLocation = () => {
     setIsLocating(true);
@@ -134,25 +113,6 @@ const NearMe = () => {
           <p className="text-muted-foreground mb-6">
             Find healthcare facilities closest to your current location for immediate medical attention.
           </p>
-          
-          {showApiKeyInput && (
-            <div className="mb-8 glass p-5 rounded-xl">
-              <h3 className="font-medium mb-3">Enter Google Maps API Key</h3>
-              <div className="flex flex-col md:flex-row gap-2">
-                <Input
-                  type="text"
-                  placeholder="Enter your Google Maps API key"
-                  value={googleMapsApiKey}
-                  onChange={(e) => setGoogleMapsApiKey(e.target.value)}
-                  className="flex-1"
-                />
-                <Button onClick={saveApiKey}>Save API Key</Button>
-              </div>
-              <p className="text-xs text-muted-foreground mt-2">
-                This is for demonstration purposes. In a production app, API keys would be stored securely.
-              </p>
-            </div>
-          )}
           
           <button 
             onClick={handleGetLocation}
