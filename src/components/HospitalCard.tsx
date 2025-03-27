@@ -2,6 +2,7 @@
 import { Star, MapPin, Clock, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export interface Hospital {
   id: string;
@@ -24,6 +25,13 @@ interface HospitalCardProps {
 }
 
 const HospitalCard = ({ hospital, className }: HospitalCardProps) => {
+  const [imageError, setImageError] = useState(false);
+  
+  // Fallback hospital images by type
+  const fallbackImage = hospital.hospitalType === "government" 
+    ? "https://images.unsplash.com/photo-1587351021759-3772687fe598?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80"
+    : "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80";
+
   return (
     <Link 
       to={`/hospital/${hospital.id}`}
@@ -34,9 +42,10 @@ const HospitalCard = ({ hospital, className }: HospitalCardProps) => {
     >
       <div className="relative mb-4 rounded-lg overflow-hidden">
         <img 
-          src={hospital.image} 
+          src={imageError ? fallbackImage : hospital.image} 
           alt={hospital.name}
           className="w-full h-40 object-cover transition-transform duration-700 hover:scale-110"
+          onError={() => setImageError(true)}
         />
         {hospital.distance && (
           <span className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-medium">
