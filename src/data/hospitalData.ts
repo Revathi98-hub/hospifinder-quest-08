@@ -1,3 +1,4 @@
+
 import { Hospital } from "@/data/hospitals/types";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
 import { visakhapatnamHospitals } from "./hospitals/visakhapatnam";
@@ -7,6 +8,7 @@ import { eastGodavariHospitals } from "./hospitals/east-godavari";
 import { prakasamHospitals } from "./hospitals/prakasam";
 import { nelloreHospitals } from "./hospitals/nellore";
 import { krishnaHospitals } from "./hospitals/krishna";
+import { kurnoolHospitals } from "./hospitals/kurnool";
 import { 
   getHospitalById as getHospitalByIdUtil,
   searchHospitals as searchHospitalsUtil,
@@ -22,7 +24,8 @@ export const hospitals: Hospital[] = [
   ...eastGodavariHospitals,
   ...prakasamHospitals,
   ...nelloreHospitals,
-  ...krishnaHospitals
+  ...krishnaHospitals,
+  ...kurnoolHospitals
 ];
 
 // Function to get hospital by ID
