@@ -46,6 +46,20 @@ export const nelloreHospitals: Hospital[] = [
     specialty: ["General Medicine", "Emergency", "Gynecology"],
     hospitalType: "government"
   },
+  {
+    id: "nellore_gov4",
+    name: "Community Health Centre (CHC), Allur",
+    address: "Allur, Nellore, Andhra Pradesh",
+    distance: "4.1 km",
+    image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2053&q=80",
+    rating: 3.9,
+    ratingCount: 187,
+    open: true,
+    openHours: "24 hours",
+    phone: "+91 861 2367890",
+    specialty: ["Primary Care", "Family Medicine", "Maternal Health"],
+    hospitalType: "government"
+  },
   
   // Private Hospitals
   {
