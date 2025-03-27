@@ -1,5 +1,4 @@
-
-import { Hospital } from "@/components/HospitalCard";
+import { Hospital } from "@/data/hospitals/types";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
 import { visakhapatnamHospitals } from "./hospitals/visakhapatnam";
 import { otherAndhraHospitals } from "./hospitals/other-andhra";
@@ -7,6 +6,7 @@ import { westGodavariHospitals } from "./hospitals/west-godavari";
 import { eastGodavariHospitals } from "./hospitals/east-godavari";
 import { prakasamHospitals } from "./hospitals/prakasam";
 import { nelloreHospitals } from "./hospitals/nellore";
+import { krishnaHospitals } from "./hospitals/krishna";
 import { 
   getHospitalById as getHospitalByIdUtil,
   searchHospitals as searchHospitalsUtil,
@@ -21,7 +21,8 @@ export const hospitals: Hospital[] = [
   ...westGodavariHospitals,
   ...eastGodavariHospitals,
   ...prakasamHospitals,
-  ...nelloreHospitals
+  ...nelloreHospitals,
+  ...krishnaHospitals
 ];
 
 // Function to get hospital by ID
