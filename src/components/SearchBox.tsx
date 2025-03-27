@@ -126,7 +126,7 @@ const SearchBox = ({
               </div>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All States</SelectItem>
+              <SelectItem value="all_states">All States</SelectItem>
               {states.map(state => (
                 <SelectItem key={state} value={state}>
                   {state}
@@ -146,7 +146,7 @@ const SearchBox = ({
                 <SelectValue placeholder="Select district" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Districts</SelectItem>
+                <SelectItem value="all_districts">All Districts</SelectItem>
                 {availableDistricts.map(district => (
                   <SelectItem key={district} value={district}>
                     {district}

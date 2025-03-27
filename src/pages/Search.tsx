@@ -79,6 +79,16 @@ const Search = () => {
     setSelectedState(newState || "");
     setSelectedDistrict(newDistrict || "");
     
+    // Handle "all_states" value
+    if (newState === "all_states") {
+      newState = "";
+    }
+    
+    // Handle "all_districts" value
+    if (newDistrict === "all_districts") {
+      newDistrict = "";
+    }
+    
     // Update URL with search parameters
     const searchParams = new URLSearchParams();
     if (newQuery) searchParams.append("query", newQuery);
