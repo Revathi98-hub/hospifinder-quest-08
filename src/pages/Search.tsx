@@ -1,14 +1,14 @@
-
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Filter, MapPin, Building } from "lucide-react";
+import { Filter, MapPin, Building, Shield, Heart } from "lucide-react";
 import SearchBox from "@/components/SearchBox";
 import HospitalCard from "@/components/HospitalCard";
 import { searchHospitals, getAllSpecialties } from "@/data/hospitalData";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
+import { Toggle } from "@/components/ui/toggle";
 
 const Search = () => {
   const location = useLocation();
@@ -17,11 +17,13 @@ const Search = () => {
   const initialLocation = queryParams.get("location") || "";
   const initialState = queryParams.get("state") || "";
   const initialDistrict = queryParams.get("district") || "";
+  const initialHospitalType = queryParams.get("hospitalType") || "";
   
   const [query, setQuery] = useState(initialQuery);
   const [locationQuery, setLocationQuery] = useState(initialLocation);
   const [selectedState, setSelectedState] = useState(initialState);
   const [selectedDistrict, setSelectedDistrict] = useState(initialDistrict);
+  const [hospitalType, setHospitalType] = useState(initialHospitalType);
   const [results, setResults] = useState(searchHospitals(initialQuery, initialLocation, initialState, initialDistrict));
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>([]);
@@ -44,11 +46,13 @@ const Search = () => {
     const newLocation = queryParams.get("location") || "";
     const newState = queryParams.get("state") || "";
     const newDistrict = queryParams.get("district") || "";
+    const newHospitalType = queryParams.get("hospitalType") || "";
     
     setQuery(newQuery);
     setLocationQuery(newLocation);
     setSelectedState(newState);
     setSelectedDistrict(newDistrict);
+    setHospitalType(newHospitalType);
     
     if (newState && !selectedStates.includes(newState)) {
       setSelectedStates(prev => [...prev, newState]);
@@ -70,14 +74,34 @@ const Search = () => {
       );
     }
     
+    // Apply hospital type filter
+    if (newHospitalType) {
+      filtered = filtered.filter(hospital => {
+        // This is a simplified check; in a real app, you'd have a proper field for this
+        const hospitalName = hospital.name.toLowerCase();
+        if (newHospitalType === "government") {
+          return hospitalName.includes("government") || 
+                 hospitalName.includes("general hospital") ||
+                 hospitalName.includes("medical college") ||
+                 hospitalName.includes("aiims");
+        } else if (newHospitalType === "private") {
+          return !hospitalName.includes("government") && 
+                 !hospitalName.includes("general hospital") &&
+                 !hospitalName.includes("medical college") &&
+                 !hospitalName.includes("aiims");
+        }
+        return true;
+      });
+    }
+    
     setResults(filtered);
   }, [location.search, selectedSpecialties]);
   
-  const handleSearch = (newQuery: string, newLocation: string, newState?: string, newDistrict?: string) => {
-    setQuery(newQuery);
+  const handleSearch = (newLocation: string, newState?: string, newDistrict?: string, newHospitalType?: string) => {
     setLocationQuery(newLocation);
     setSelectedState(newState || "");
     setSelectedDistrict(newDistrict || "");
+    setHospitalType(newHospitalType || "");
     
     // Handle "all_states" value
     if (newState === "all_states") {
@@ -91,15 +115,38 @@ const Search = () => {
     
     // Update URL with search parameters
     const searchParams = new URLSearchParams();
-    if (newQuery) searchParams.append("query", newQuery);
+    if (query) searchParams.append("query", query);
     if (newLocation) searchParams.append("location", newLocation);
     if (newState) searchParams.append("state", newState);
     if (newDistrict) searchParams.append("district", newDistrict);
+    if (newHospitalType) searchParams.append("hospitalType", newHospitalType);
     
     window.history.pushState({}, "", `${location.pathname}?${searchParams.toString()}`);
     
     // Perform search
-    setResults(searchHospitals(newQuery, newLocation, newState, newDistrict));
+    let filtered = searchHospitals(query, newLocation, newState, newDistrict);
+    
+    // Apply hospital type filter
+    if (newHospitalType) {
+      filtered = filtered.filter(hospital => {
+        // This is a simplified check; in a real app, you'd have a proper field for this
+        const hospitalName = hospital.name.toLowerCase();
+        if (newHospitalType === "government") {
+          return hospitalName.includes("government") || 
+                 hospitalName.includes("general hospital") ||
+                 hospitalName.includes("medical college") ||
+                 hospitalName.includes("aiims");
+        } else if (newHospitalType === "private") {
+          return !hospitalName.includes("government") && 
+                 !hospitalName.includes("general hospital") &&
+                 !hospitalName.includes("medical college") &&
+                 !hospitalName.includes("aiims");
+        }
+        return true;
+      });
+    }
+    
+    setResults(filtered);
   };
   
   const toggleSpecialty = (specialty: string) => {
@@ -143,7 +190,7 @@ const Search = () => {
     });
   };
   
-  // Apply filters (states and districts)
+  // Apply filters (states, districts, and specialties)
   useEffect(() => {
     // Skip on initial load
     if (!isLoaded) return;
@@ -180,8 +227,28 @@ const Search = () => {
       );
     }
     
+    // Apply hospital type filter
+    if (hospitalType) {
+      filtered = filtered.filter(hospital => {
+        // This is a simplified check; in a real app, you'd have a proper field for this
+        const hospitalName = hospital.name.toLowerCase();
+        if (hospitalType === "government") {
+          return hospitalName.includes("government") || 
+                 hospitalName.includes("general hospital") ||
+                 hospitalName.includes("medical college") ||
+                 hospitalName.includes("aiims");
+        } else if (hospitalType === "private") {
+          return !hospitalName.includes("government") && 
+                 !hospitalName.includes("general hospital") &&
+                 !hospitalName.includes("medical college") &&
+                 !hospitalName.includes("aiims");
+        }
+        return true;
+      });
+    }
+    
     setResults(filtered);
-  }, [selectedStates, selectedDistricts, selectedSpecialties, isLoaded]);
+  }, [selectedStates, selectedDistricts, selectedSpecialties, hospitalType, isLoaded]);
   
   return (
     <div className="min-h-screen pb-20 pt-24">
@@ -192,6 +259,7 @@ const Search = () => {
             className="mb-6 shadow-sm"
             initialState={selectedState}
             initialDistrict={selectedDistrict}
+            initialHospitalType={hospitalType}
           />
           
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -222,12 +290,44 @@ const Search = () => {
                 )}
               </button>
               
-              {(selectedSpecialties.length > 0 || selectedStates.length > 0) && (
+              <div className="flex gap-2">
+                <Toggle 
+                  pressed={hospitalType === "government"} 
+                  onPressedChange={() => {
+                    const newType = hospitalType === "government" ? "" : "government";
+                    setHospitalType(newType);
+                    handleSearch(locationQuery, selectedState, selectedDistrict, newType);
+                  }}
+                  className="px-3 py-1 h-auto rounded-full text-xs border"
+                  aria-label="Government Hospitals"
+                >
+                  <Shield className="w-3 h-3 mr-1" />
+                  Government
+                </Toggle>
+                
+                <Toggle 
+                  pressed={hospitalType === "private"} 
+                  onPressedChange={() => {
+                    const newType = hospitalType === "private" ? "" : "private";
+                    setHospitalType(newType);
+                    handleSearch(locationQuery, selectedState, selectedDistrict, newType);
+                  }}
+                  className="px-3 py-1 h-auto rounded-full text-xs border"
+                  aria-label="Private Hospitals"
+                >
+                  <Heart className="w-3 h-3 mr-1" />
+                  Private
+                </Toggle>
+              </div>
+              
+              {(selectedSpecialties.length > 0 || selectedStates.length > 0 || hospitalType) && (
                 <button
                   onClick={() => {
                     setSelectedSpecialties([]);
                     setSelectedStates([]);
                     setSelectedDistricts({});
+                    setHospitalType("");
+                    handleSearch(locationQuery, selectedState, selectedDistrict, "");
                   }}
                   className="text-sm text-medical-600 hover:text-medical-700 transition-colors"
                 >

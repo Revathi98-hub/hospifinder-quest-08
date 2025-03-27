@@ -1,17 +1,20 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Building } from "lucide-react";
+import { Building, Shield, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Button } from "@/components/ui/button";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
 
 interface SearchBoxProps {
   className?: string;
   variant?: "large" | "normal";
-  onSearch?: (location: string, state?: string, district?: string) => void;
+  onSearch?: (location: string, state?: string, district?: string, hospitalType?: string) => void;
   initialState?: string;
   initialDistrict?: string;
+  initialHospitalType?: string;
 }
 
 const SearchBox = ({ 
@@ -19,10 +22,12 @@ const SearchBox = ({
   variant = "normal",
   onSearch,
   initialState,
-  initialDistrict
+  initialDistrict,
+  initialHospitalType
 }: SearchBoxProps) => {
   const [selectedState, setSelectedState] = useState<string>(initialState || "");
   const [selectedDistrict, setSelectedDistrict] = useState<string>(initialDistrict || "");
+  const [hospitalType, setHospitalType] = useState<string>(initialHospitalType || "");
   const [availableDistricts, setAvailableDistricts] = useState<string[]>([]);
   
   const navigate = useNavigate();
@@ -58,12 +63,13 @@ const SearchBox = ({
     const districtParam = selectedDistrict === "all_districts" ? "" : selectedDistrict;
     
     if (onSearch) {
-      onSearch(locationString, stateParam, districtParam);
+      onSearch(locationString, stateParam, districtParam, hospitalType);
     } else {
       const searchParams = new URLSearchParams();
       if (locationString) searchParams.append("location", locationString);
       if (stateParam) searchParams.append("state", stateParam);
       if (districtParam) searchParams.append("district", districtParam);
+      if (hospitalType) searchParams.append("hospitalType", hospitalType);
       
       navigate(`/search?${searchParams.toString()}`);
     }
@@ -132,6 +138,38 @@ const SearchBox = ({
           Search
         </button>
       </div>
+      
+      {/* Hospital Type Filter */}
+      {(selectedState || selectedDistrict) && (
+        <div className="mt-3 flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Hospital Type:</span>
+          <ToggleGroup 
+            type="single" 
+            value={hospitalType} 
+            onValueChange={(value) => setHospitalType(value)}
+            className="justify-start"
+          >
+            <ToggleGroupItem value="government" aria-label="Government Hospitals">
+              <Shield className="mr-1" size={16} />
+              Government
+            </ToggleGroupItem>
+            <ToggleGroupItem value="private" aria-label="Private Hospitals">
+              <Heart className="mr-1" size={16} />
+              Private
+            </ToggleGroupItem>
+            {hospitalType && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setHospitalType("")}
+                className="h-9 text-xs"
+              >
+                Clear
+              </Button>
+            )}
+          </ToggleGroup>
+        </div>
+      )}
     </form>
   );
 };
