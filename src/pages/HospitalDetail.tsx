@@ -16,6 +16,9 @@ import {
 } from "lucide-react";
 import { getHospitalById } from "@/data/hospitalData";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import ReviewForm from "@/components/ReviewForm";
+import { toast } from "sonner";
 
 interface DetailItemProps {
   icon: LucideIcon;
@@ -40,6 +43,41 @@ const HospitalDetail = () => {
   const [hospital, setHospital] = useState(id ? getHospitalById(id) : null);
   const [activeTab, setActiveTab] = useState("overview");
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [hospitalDetails, setHospitalDetails] = useState({
+    overview: {
+      description: "Metropolitan General Hospital is a leading healthcare facility providing comprehensive medical services across multiple specialties. Founded in 1965, the hospital has grown to become one of the most trusted medical centers in the region, known for its advanced technology, skilled medical professionals, and patient-centered care approach.",
+      beds: "350",
+      emergency: "24/7 Emergency Services",
+      insurance: "Accepts most major insurance plans"
+    },
+    services: [
+      "Emergency Care",
+      "Cardiology",
+      "Orthopedics",
+      "Neurology",
+      "Oncology",
+      "Pediatrics",
+      "Obstetrics & Gynecology",
+      "Radiology & Imaging",
+      "Laboratory Services",
+      "Physical Therapy",
+      "Mental Health Services"
+    ],
+    doctors: [
+      { name: "Dr. Sarah Johnson", specialty: "Cardiology", rating: 4.9 },
+      { name: "Dr. Michael Chen", specialty: "Neurology", rating: 4.8 },
+      { name: "Dr. Emily Rodriguez", specialty: "Pediatrics", rating: 4.7 },
+      { name: "Dr. David Park", specialty: "Orthopedics", rating: 4.8 },
+      { name: "Dr. Lisa Wong", specialty: "Oncology", rating: 4.9 }
+    ],
+    reviews: [
+      { user: "John D.", rating: 5, comment: "Excellent care from the moment I arrived. The staff was attentive and professional." },
+      { user: "Sarah M.", rating: 4, comment: "Good experience overall. Wait times could be improved, but the medical care was excellent." },
+      { user: "Robert T.", rating: 5, comment: "The doctors explained everything thoroughly and made me feel comfortable throughout my procedure." },
+      { user: "Maria L.", rating: 4, comment: "Clean facilities and caring staff. Would recommend to family and friends." }
+    ]
+  });
   
   useEffect(() => {
     setIsLoaded(true);
@@ -74,40 +112,24 @@ const HospitalDetail = () => {
     { id: "reviews", label: "Reviews" }
   ];
   
-  // Simulated data for demo purposes
-  const hospitalDetails = {
-    overview: {
-      description: "Metropolitan General Hospital is a leading healthcare facility providing comprehensive medical services across multiple specialties. Founded in 1965, the hospital has grown to become one of the most trusted medical centers in the region, known for its advanced technology, skilled medical professionals, and patient-centered care approach.",
-      beds: "350",
-      emergency: "24/7 Emergency Services",
-      insurance: "Accepts most major insurance plans"
-    },
-    services: [
-      "Emergency Care",
-      "Cardiology",
-      "Orthopedics",
-      "Neurology",
-      "Oncology",
-      "Pediatrics",
-      "Obstetrics & Gynecology",
-      "Radiology & Imaging",
-      "Laboratory Services",
-      "Physical Therapy",
-      "Mental Health Services"
-    ],
-    doctors: [
-      { name: "Dr. Sarah Johnson", specialty: "Cardiology", rating: 4.9 },
-      { name: "Dr. Michael Chen", specialty: "Neurology", rating: 4.8 },
-      { name: "Dr. Emily Rodriguez", specialty: "Pediatrics", rating: 4.7 },
-      { name: "Dr. David Park", specialty: "Orthopedics", rating: 4.8 },
-      { name: "Dr. Lisa Wong", specialty: "Oncology", rating: 4.9 }
-    ],
-    reviews: [
-      { user: "John D.", rating: 5, comment: "Excellent care from the moment I arrived. The staff was attentive and professional." },
-      { user: "Sarah M.", rating: 4, comment: "Good experience overall. Wait times could be improved, but the medical care was excellent." },
-      { user: "Robert T.", rating: 5, comment: "The doctors explained everything thoroughly and made me feel comfortable throughout my procedure." },
-      { user: "Maria L.", rating: 4, comment: "Clean facilities and caring staff. Would recommend to family and friends." }
-    ]
+  const handleSubmitReview = (review: { rating: number; comment: string }) => {
+    // In a real app, this would save to a database
+    const newReview = {
+      user: "You",
+      rating: review.rating,
+      comment: review.comment
+    };
+    
+    setHospitalDetails(prevDetails => ({
+      ...prevDetails,
+      reviews: [newReview, ...prevDetails.reviews]
+    }));
+    
+    setShowReviewForm(false);
+    toast.success("Thank you for your review!");
+    
+    // Auto-switch to reviews tab
+    setActiveTab("reviews");
   };
   
   return (
@@ -292,8 +314,22 @@ const HospitalDetail = () => {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-semibold">Patient Reviews</h2>
-                <button className="btn-secondary">Write a Review</button>
+                <Button 
+                  onClick={() => setShowReviewForm(true)}
+                  disabled={showReviewForm}
+                >
+                  Write a Review
+                </Button>
               </div>
+              
+              {showReviewForm && (
+                <div className="glass p-6 rounded-xl mb-6">
+                  <ReviewForm 
+                    onSubmit={handleSubmitReview}
+                    onCancel={() => setShowReviewForm(false)}
+                  />
+                </div>
+              )}
               
               <div className="space-y-6">
                 {hospitalDetails.reviews.map((review, index) => (
