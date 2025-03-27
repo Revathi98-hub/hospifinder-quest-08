@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, MapPin, Building } from "lucide-react";
+import { Building } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
@@ -9,7 +9,7 @@ import { getAllStates, getDistrictsByState } from "@/data/locationData";
 interface SearchBoxProps {
   className?: string;
   variant?: "large" | "normal";
-  onSearch?: (query: string, location: string, state?: string, district?: string) => void;
+  onSearch?: (location: string, state?: string, district?: string) => void;
   initialState?: string;
   initialDistrict?: string;
 }
@@ -21,8 +21,6 @@ const SearchBox = ({
   initialState,
   initialDistrict
 }: SearchBoxProps) => {
-  const [query, setQuery] = useState("");
-  const [location, setLocation] = useState("");
   const [selectedState, setSelectedState] = useState<string>(initialState || "");
   const [selectedDistrict, setSelectedDistrict] = useState<string>(initialDistrict || "");
   const [availableDistricts, setAvailableDistricts] = useState<string[]>([]);
@@ -48,7 +46,7 @@ const SearchBox = ({
     e.preventDefault();
     
     // Format location string based on state and district
-    let locationString = location;
+    let locationString = "";
     if (selectedDistrict && selectedState) {
       locationString = `${selectedDistrict}, ${selectedState}`;
     } else if (selectedState) {
@@ -56,10 +54,9 @@ const SearchBox = ({
     }
     
     if (onSearch) {
-      onSearch(query, locationString, selectedState, selectedDistrict);
+      onSearch(locationString, selectedState, selectedDistrict);
     } else {
       const searchParams = new URLSearchParams();
-      if (query) searchParams.append("query", query);
       if (locationString) searchParams.append("location", locationString);
       if (selectedState) searchParams.append("state", selectedState);
       if (selectedDistrict) searchParams.append("district", selectedDistrict);
@@ -78,84 +75,48 @@ const SearchBox = ({
       )}
     >
       <div className="flex flex-col md:flex-row gap-2">
-        <div className={cn(
-          "flex items-center gap-2 rounded-xl bg-background px-3 py-2",
-          variant === "large" && "py-3"
-        )}>
-          <Search className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-          <input
-            type="text"
-            placeholder="Hospital name or specialty"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+        <Select value={selectedState} onValueChange={setSelectedState}>
+          <SelectTrigger 
             className={cn(
-              "bg-transparent border-0 outline-none placeholder:text-muted-foreground w-full",
+              "rounded-xl bg-background border-0",
               variant === "large" && "text-lg"
             )}
-          />
-        </div>
+          >
+            <div className="flex items-center gap-2">
+              <Building className="w-5 h-5 text-muted-foreground flex-shrink-0" />
+              <SelectValue placeholder="Select state" />
+            </div>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all_states">All States</SelectItem>
+            {states.map(state => (
+              <SelectItem key={state} value={state}>
+                {state}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
         
-        <div className={cn(
-          "flex items-center gap-2 rounded-xl bg-background px-3 py-2",
-          variant === "large" && "py-3"
-        )}>
-          <MapPin className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-          <input
-            type="text"
-            placeholder="Location (city, area)"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className={cn(
-              "bg-transparent border-0 outline-none placeholder:text-muted-foreground w-full",
-              variant === "large" && "text-lg"
-            )}
-          />
-        </div>
-        
-        <div className="flex flex-col md:flex-row gap-2">
-          <Select value={selectedState} onValueChange={setSelectedState}>
+        {selectedState && (
+          <Select value={selectedDistrict} onValueChange={setSelectedDistrict}>
             <SelectTrigger 
               className={cn(
                 "rounded-xl bg-background border-0",
                 variant === "large" && "text-lg"
               )}
             >
-              <div className="flex items-center gap-2">
-                <Building className="w-5 h-5 text-muted-foreground flex-shrink-0" />
-                <SelectValue placeholder="Select state" />
-              </div>
+              <SelectValue placeholder="Select district" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all_states">All States</SelectItem>
-              {states.map(state => (
-                <SelectItem key={state} value={state}>
-                  {state}
+              <SelectItem value="all_districts">All Districts</SelectItem>
+              {availableDistricts.map(district => (
+                <SelectItem key={district} value={district}>
+                  {district}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
-          
-          {selectedState && (
-            <Select value={selectedDistrict} onValueChange={setSelectedDistrict}>
-              <SelectTrigger 
-                className={cn(
-                  "rounded-xl bg-background border-0",
-                  variant === "large" && "text-lg"
-                )}
-              >
-                <SelectValue placeholder="Select district" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all_districts">All Districts</SelectItem>
-                {availableDistricts.map(district => (
-                  <SelectItem key={district} value={district}>
-                    {district}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        </div>
+        )}
         
         <button 
           type="submit"
