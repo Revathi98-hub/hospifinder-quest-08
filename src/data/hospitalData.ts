@@ -1,3 +1,4 @@
+
 import { Hospital } from "@/components/HospitalCard";
 import { getAllStates, getDistrictsByState } from "@/data/locationData";
 
@@ -816,3 +817,94 @@ export const hospitals: Hospital[] = [
     hospitalType: "private"
   }
 ];
+
+// Function to get hospital by ID
+export const getHospitalById = (id: string): Hospital | undefined => {
+  return hospitals.find(hospital => hospital.id === id);
+};
+
+// Function to search hospitals based on criteria
+export const searchHospitals = (
+  query: string = "", 
+  location: string = "",
+  state: string = "",
+  district: string = ""
+): Hospital[] => {
+  let filteredHospitals = [...hospitals];
+  
+  // Filter by search query (hospital name or specialty)
+  if (query) {
+    const searchTerm = query.toLowerCase();
+    filteredHospitals = filteredHospitals.filter(hospital => 
+      hospital.name.toLowerCase().includes(searchTerm) || 
+      hospital.specialty?.some(spec => spec.toLowerCase().includes(searchTerm))
+    );
+  }
+  
+  // Filter by location
+  if (location) {
+    const locationTerm = location.toLowerCase();
+    filteredHospitals = filteredHospitals.filter(hospital => 
+      hospital.address.toLowerCase().includes(locationTerm)
+    );
+  }
+  
+  // Filter by state
+  if (state) {
+    filteredHospitals = filteredHospitals.filter(hospital => 
+      hospital.address.toLowerCase().includes(state.toLowerCase())
+    );
+  }
+  
+  // Filter by district
+  if (district) {
+    filteredHospitals = filteredHospitals.filter(hospital => 
+      hospital.address.toLowerCase().includes(district.toLowerCase())
+    );
+  }
+  
+  return filteredHospitals;
+};
+
+// Function to get hospitals by location with distance radius
+export const getHospitalsByLocation = (
+  latitude: number,
+  longitude: number,
+  radiusKm: number = 5
+): Hospital[] => {
+  // In a real app, we would calculate actual distances
+  // For this demo, we'll simulate by filtering randomly
+  
+  const result = hospitals.map(hospital => {
+    // Generate a random distance between 0.5 and 10 km
+    const randomDistance = (Math.random() * 9.5 + 0.5).toFixed(1);
+    return {
+      ...hospital,
+      distance: `${randomDistance} km`
+    };
+  }).filter(hospital => {
+    // Convert the distance string to a number for comparison
+    const distanceValue = parseFloat(hospital.distance?.split(' ')[0] || '0');
+    return distanceValue <= radiusKm;
+  });
+  
+  // Sort by distance
+  return result.sort((a, b) => {
+    const distA = parseFloat(a.distance?.split(' ')[0] || '0');
+    const distB = parseFloat(b.distance?.split(' ')[0] || '0');
+    return distA - distB;
+  });
+};
+
+// Function to get all unique specialties from the hospitals
+export const getAllSpecialties = (): string[] => {
+  const specialtiesSet = new Set<string>();
+  
+  hospitals.forEach(hospital => {
+    hospital.specialty?.forEach(spec => {
+      specialtiesSet.add(spec);
+    });
+  });
+  
+  return Array.from(specialtiesSet).sort();
+};
