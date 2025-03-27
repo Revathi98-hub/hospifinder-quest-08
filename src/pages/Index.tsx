@@ -13,8 +13,8 @@ const Index = () => {
     setIsLoaded(true);
   }, []);
   
-  // Show a subset of featured hospitals
-  const featuredHospitals = hospitals.slice(0, 3);
+  // Show more featured hospitals
+  const featuredHospitals = hospitals.slice(0, 6);
 
   return (
     <div className="min-h-screen pb-20">
