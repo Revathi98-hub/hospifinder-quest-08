@@ -1,4 +1,3 @@
-
 // Indian states and their districts
 export interface LocationData {
   state: string;
