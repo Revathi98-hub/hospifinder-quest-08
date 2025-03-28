@@ -14,10 +14,6 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 187,
     image: "https://images.onlymyhealth.com/imported/images/2021/June/16_Jun_2021/HomeICU_big.jpg",
     hospitalType: "government",
-    mapLocation: {
-      latitude: 26.1448,
-      longitude: 91.7898
-    },
     ambulanceAvailable: true,
     description: "Gauhati Medical College and Hospital is a prominent government medical institution in Assam, offering comprehensive healthcare services and medical education.",
     emergencyServices: true,
@@ -35,10 +31,6 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 143,
     image: "https://cdnassets.hw.net/3c/59/2e8a2f6740fcbfe830881f80b596/c82bbba2-6249-4cd8-a66a-502941a4eeb6.jpg",
     hospitalType: "government",
-    mapLocation: {
-      latitude: 27.4728,
-      longitude: 94.9120
-    },
     ambulanceAvailable: true,
     description: "Established in 1947, Assam Medical College and Hospital is one of the oldest medical institutions in Northeast India, providing quality healthcare services.",
     emergencyServices: true,
@@ -56,10 +48,6 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 210,
     image: "https://nsmot.com/wp-content/uploads/2019/05/Modern-modular-operation-theatre-2-5030x2515.jpg",
     hospitalType: "private",
-    mapLocation: {
-      latitude: 26.1539,
-      longitude: 91.7806
-    },
     ambulanceAvailable: true,
     description: "Down Town Hospital is a leading multi-specialty private hospital in Guwahati, equipped with advanced medical technology and experienced healthcare professionals.",
     emergencyServices: true,
@@ -77,10 +65,6 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 175,
     image: "https://www.mjpaia.com/wp-content/uploads/2012/06/SVMC-ER-MainOperatingRoom-e1338921334793-940x626.jpg",
     hospitalType: "private",
-    mapLocation: {
-      latitude: 26.1802,
-      longitude: 91.7086
-    },
     ambulanceAvailable: true,
     description: "Narayana Superspeciality Hospital is part of the renowned Narayana Health Group, offering advanced cardiac care and other specialized medical services.",
     emergencyServices: true,

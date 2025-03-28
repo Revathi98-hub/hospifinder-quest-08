@@ -14,10 +14,6 @@ export const haryanaHospitals: Hospital[] = [
     ratingCount: 230,
     image: "https://images.onlymyhealth.com/imported/images/2021/June/16_Jun_2021/HomeICU_big.jpg",
     hospitalType: "government",
-    mapLocation: {
-      latitude: 28.8816,
-      longitude: 76.6186
-    },
     ambulanceAvailable: true,
     description: "Pandit Bhagwat Dayal Sharma Post Graduate Institute of Medical Sciences (PGIMS) is a premier government medical institution in Haryana.",
     emergencyServices: true,
@@ -35,10 +31,6 @@ export const haryanaHospitals: Hospital[] = [
     ratingCount: 178,
     image: "https://c8.alamy.com/comp/RATKP4/regions-hospital-building-showing-the-emergency-room-entrance-in-front-st-paul-minnesota-mn-usa-RATKP4.jpg",
     hospitalType: "government",
-    mapLocation: {
-      latitude: 28.4595,
-      longitude: 77.0266
-    },
     ambulanceAvailable: true,
     description: "Civil Hospital in Gurgaon is a government healthcare facility providing essential medical services to the community.",
     emergencyServices: true,
@@ -56,10 +48,6 @@ export const haryanaHospitals: Hospital[] = [
     ratingCount: 315,
     image: "https://nsmot.com/wp-content/uploads/2019/05/Modern-modular-operation-theatre-2-5030x2515.jpg",
     hospitalType: "private",
-    mapLocation: {
-      latitude: 28.4389,
-      longitude: 77.0406
-    },
     ambulanceAvailable: true,
     description: "Medanta – The Medicity is a multi-specialty medical institute with world-class infrastructure and highly skilled medical professionals.",
     emergencyServices: true,
@@ -77,10 +65,6 @@ export const haryanaHospitals: Hospital[] = [
     ratingCount: 252,
     image: "https://www.mjpaia.com/wp-content/uploads/2012/06/SVMC-ER-MainOperatingRoom-e1338921334793-940x626.jpg",
     hospitalType: "private",
-    mapLocation: {
-      latitude: 28.4264,
-      longitude: 77.0724
-    },
     ambulanceAvailable: true,
     description: "Artemis Hospital is a leading multi-specialty hospital in Gurugram, known for its advanced medical technologies and excellent patient care.",
     emergencyServices: true,
