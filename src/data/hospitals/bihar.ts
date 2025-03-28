@@ -14,7 +14,6 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 230,
     image: "https://thumbs.dreamstime.com/z/hospital-reception-waiting-room-chairs-building-centre-92207521.jpg",
     hospitalType: "government",
-    verified: true,
     mapLocation: {
       latitude: 25.6207,
       longitude: 85.1701
@@ -22,7 +21,8 @@ export const biharHospitals: Hospital[] = [
     ambulanceAvailable: true,
     description: "Patna Medical College and Hospital is a premier government medical institution in Bihar, serving as a major healthcare facility for the region.",
     emergencyServices: true,
-    distanceFromCenter: "2.5 km"
+    distanceFromCenter: "2.5 km",
+    open: true
   },
   {
     id: uuidv4(),
@@ -35,7 +35,6 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 180,
     image: "https://thumbs.dreamstime.com/z/modern-style-hospital-building-straight-lines-concrete-facing-30588884.jpg",
     hospitalType: "government",
-    verified: true,
     mapLocation: {
       latitude: 25.5935,
       longitude: 85.1523
@@ -43,7 +42,8 @@ export const biharHospitals: Hospital[] = [
     ambulanceAvailable: true,
     description: "Nalanda Medical College and Hospital is a significant public healthcare facility in Patna, providing essential medical services to the community.",
     emergencyServices: true,
-    distanceFromCenter: "3.7 km"
+    distanceFromCenter: "3.7 km",
+    open: true
   },
   {
     id: uuidv4(),
@@ -56,7 +56,6 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 195,
     image: "https://www.hksh-hospital.com/sites/default/files/website-media/images/accommodation/paediatric-ward/img02.JPG",
     hospitalType: "private",
-    verified: true,
     mapLocation: {
       latitude: 25.6327,
       longitude: 85.0945
@@ -64,7 +63,8 @@ export const biharHospitals: Hospital[] = [
     ambulanceAvailable: true,
     description: "Dr. Ruban Memorial Hospital is a well-equipped private hospital in Patna, offering specialized healthcare services with modern medical facilities.",
     emergencyServices: true,
-    distanceFromCenter: "4.2 km"
+    distanceFromCenter: "4.2 km",
+    open: true
   },
   {
     id: uuidv4(),
@@ -77,7 +77,6 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 167,
     image: "https://admissionxpert.in/wp-content/uploads/2020/11/Operation-Theater-Technology-img-min.jpg",
     hospitalType: "private",
-    verified: true,
     mapLocation: {
       latitude: 25.6148,
       longitude: 85.1210
@@ -85,6 +84,7 @@ export const biharHospitals: Hospital[] = [
     ambulanceAvailable: true,
     description: "Heart Hospital is a specialized cardiac care center in Patna, providing comprehensive diagnosis, treatment, and management of heart conditions.",
     emergencyServices: true,
-    distanceFromCenter: "3.1 km"
+    distanceFromCenter: "3.1 km",
+    open: true
   }
 ];
