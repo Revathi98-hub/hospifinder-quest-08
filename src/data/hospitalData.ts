@@ -21,6 +21,10 @@ import { uttarPradeshHospitals } from "./hospitals/uttarpradesh";
 import { westBengalHospitals } from "./hospitals/westbengal";
 import { rajasthanHospitals } from "./hospitals/rajasthan";
 import { punjabHospitals } from "./hospitals/punjab";
+import { assamHospitals } from "./hospitals/assam";
+import { biharHospitals } from "./hospitals/bihar";
+import { haryanaHospitals } from "./hospitals/haryana";
+import { arunachalPradeshHospitals } from "./hospitals/arunachal-pradesh";
 import { 
   getHospitalById as getHospitalByIdUtil,
   searchHospitals as searchHospitalsUtil,
@@ -49,7 +53,11 @@ export const hospitals: Hospital[] = [
   ...uttarPradeshHospitals,
   ...westBengalHospitals,
   ...rajasthanHospitals,
-  ...punjabHospitals
+  ...punjabHospitals,
+  ...assamHospitals,
+  ...biharHospitals,
+  ...haryanaHospitals,
+  ...arunachalPradeshHospitals
 ];
 
 // Function to get hospital by ID

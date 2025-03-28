@@ -12,15 +12,15 @@ export const indianLocations: LocationData[] = [
   },
   {
     state: "Arunachal Pradesh",
-    districts: ["Anjaw", "Changlang", "East Kameng", "East Siang", "Lohit", "Lower Dibang Valley", "Papum Pare", "Tawang", "Upper Siang", "West Kameng"]
+    districts: ["Anjaw", "Changlang", "East Kameng", "East Siang", "Lohit", "Lower Dibang Valley", "Papum Pare", "Tawang", "Upper Siang", "West Kameng", "Itanagar", "Naharlagun"]
   },
   {
     state: "Assam",
-    districts: ["Barpeta", "Cachar", "Dibrugarh", "Goalpara", "Jorhat", "Kamrup", "Karimganj", "Nagaon", "Tinsukia", "Sonitpur"]
+    districts: ["Barpeta", "Cachar", "Dibrugarh", "Goalpara", "Jorhat", "Kamrup", "Karimganj", "Nagaon", "Tinsukia", "Sonitpur", "Guwahati", "North Guwahati", "Amingaon", "Bhangagarh"]
   },
   {
     state: "Bihar",
-    districts: ["Araria", "Bhagalpur", "Gaya", "Katihar", "Madhubani", "Muzaffarpur", "Nalanda", "Patna", "Purnia", "Vaishali"]
+    districts: ["Araria", "Bhagalpur", "Gaya", "Katihar", "Madhubani", "Muzaffarpur", "Nalanda", "Patna", "Purnia", "Vaishali", "Kankarbagh", "Patliputra Colony", "Boring Road"]
   },
   {
     state: "Chhattisgarh",
@@ -40,7 +40,7 @@ export const indianLocations: LocationData[] = [
   },
   {
     state: "Haryana",
-    districts: ["Ambala", "Faridabad", "Gurugram", "Hisar", "Jhajjar", "Karnal", "Kurukshetra", "Panchkula", "Rohtak", "Sonipat"]
+    districts: ["Ambala", "Faridabad", "Gurugram", "Hisar", "Jhajjar", "Karnal", "Kurukshetra", "Panchkula", "Rohtak", "Sonipat", "Civil Lines", "Sector 38", "Sector 51"]
   },
   {
     state: "Himachal Pradesh",
