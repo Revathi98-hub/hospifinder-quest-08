@@ -13,7 +13,7 @@ export const biharHospitals: Hospital[] = [
     rating: 4.0,
     ratingCount: 230,
     image: "https://thumbs.dreamstime.com/z/hospital-reception-waiting-room-chairs-building-centre-92207521.jpg",
-    type: "Government",
+    hospitalType: "government",
     verified: true,
     mapLocation: {
       latitude: 25.6207,
@@ -34,7 +34,7 @@ export const biharHospitals: Hospital[] = [
     rating: 3.9,
     ratingCount: 180,
     image: "https://thumbs.dreamstime.com/z/modern-style-hospital-building-straight-lines-concrete-facing-30588884.jpg",
-    type: "Government",
+    hospitalType: "government",
     verified: true,
     mapLocation: {
       latitude: 25.5935,
@@ -55,7 +55,7 @@ export const biharHospitals: Hospital[] = [
     rating: 4.5,
     ratingCount: 195,
     image: "https://www.hksh-hospital.com/sites/default/files/website-media/images/accommodation/paediatric-ward/img02.JPG",
-    type: "Private",
+    hospitalType: "private",
     verified: true,
     mapLocation: {
       latitude: 25.6327,
@@ -76,7 +76,7 @@ export const biharHospitals: Hospital[] = [
     rating: 4.6,
     ratingCount: 167,
     image: "https://admissionxpert.in/wp-content/uploads/2020/11/Operation-Theater-Technology-img-min.jpg",
-    type: "Private",
+    hospitalType: "private",
     verified: true,
     mapLocation: {
       latitude: 25.6148,

@@ -13,7 +13,7 @@ export const arunachalPradeshHospitals: Hospital[] = [
     rating: 4.0,
     ratingCount: 120,
     image: "https://thumbs.dreamstime.com/z/hospital-reception-waiting-room-chairs-building-centre-92207521.jpg",
-    type: "Government",
+    hospitalType: "government",
     verified: true,
     mapLocation: {
       latitude: 27.1041,
@@ -34,7 +34,7 @@ export const arunachalPradeshHospitals: Hospital[] = [
     rating: 3.7,
     ratingCount: 95,
     image: "https://thumbs.dreamstime.com/z/modern-style-hospital-building-straight-lines-concrete-facing-30588884.jpg",
-    type: "Government",
+    hospitalType: "government",
     verified: true,
     mapLocation: {
       latitude: 27.0844,
@@ -55,7 +55,7 @@ export const arunachalPradeshHospitals: Hospital[] = [
     rating: 4.3,
     ratingCount: 110,
     image: "https://www.hksh-hospital.com/sites/default/files/website-media/images/accommodation/paediatric-ward/img02.JPG",
-    type: "Private",
+    hospitalType: "private",
     verified: true,
     mapLocation: {
       latitude: 27.1039,
@@ -76,7 +76,7 @@ export const arunachalPradeshHospitals: Hospital[] = [
     rating: 4.1,
     ratingCount: 85,
     image: "https://admissionxpert.in/wp-content/uploads/2020/11/Operation-Theater-Technology-img-min.jpg",
-    type: "Private",
+    hospitalType: "private",
     verified: true,
     mapLocation: {
       latitude: 27.1062,

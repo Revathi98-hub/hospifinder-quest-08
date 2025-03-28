@@ -13,7 +13,7 @@ export const haryanaHospitals: Hospital[] = [
     rating: 4.2,
     ratingCount: 230,
     image: "https://images.onlymyhealth.com/imported/images/2021/June/16_Jun_2021/HomeICU_big.jpg",
-    type: "Government",
+    hospitalType: "government",
     verified: true,
     mapLocation: {
       latitude: 28.8816,
@@ -34,7 +34,7 @@ export const haryanaHospitals: Hospital[] = [
     rating: 3.8,
     ratingCount: 178,
     image: "https://c8.alamy.com/comp/RATKP4/regions-hospital-building-showing-the-emergency-room-entrance-in-front-st-paul-minnesota-mn-usa-RATKP4.jpg",
-    type: "Government",
+    hospitalType: "government",
     verified: true,
     mapLocation: {
       latitude: 28.4595,
@@ -55,7 +55,7 @@ export const haryanaHospitals: Hospital[] = [
     rating: 4.8,
     ratingCount: 315,
     image: "https://nsmot.com/wp-content/uploads/2019/05/Modern-modular-operation-theatre-2-5030x2515.jpg",
-    type: "Private",
+    hospitalType: "private",
     verified: true,
     mapLocation: {
       latitude: 28.4389,
@@ -76,7 +76,7 @@ export const haryanaHospitals: Hospital[] = [
     rating: 4.7,
     ratingCount: 252,
     image: "https://www.mjpaia.com/wp-content/uploads/2012/06/SVMC-ER-MainOperatingRoom-e1338921334793-940x626.jpg",
-    type: "Private",
+    hospitalType: "private",
     verified: true,
     mapLocation: {
       latitude: 28.4264,
