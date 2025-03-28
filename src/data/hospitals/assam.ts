@@ -14,7 +14,7 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 187,
     image: "https://images.onlymyhealth.com/imported/images/2021/June/16_Jun_2021/HomeICU_big.jpg",
     hospitalType: "government",
-    distanceFromCenter: "3.2 km",
+    distance: "3.2 km",
     open: true
   },
   {
@@ -28,7 +28,7 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 143,
     image: "https://cdnassets.hw.net/3c/59/2e8a2f6740fcbfe830881f80b596/c82bbba2-6249-4cd8-a66a-502941a4eeb6.jpg",
     hospitalType: "government",
-    distanceFromCenter: "4.5 km",
+    distance: "4.5 km",
     open: true
   },
   {
@@ -42,7 +42,7 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 210,
     image: "https://nsmot.com/wp-content/uploads/2019/05/Modern-modular-operation-theatre-2-5030x2515.jpg",
     hospitalType: "private",
-    distanceFromCenter: "2.8 km",
+    distance: "2.8 km",
     open: true
   },
   {
@@ -56,7 +56,7 @@ export const assamHospitals: Hospital[] = [
     ratingCount: 175,
     image: "https://www.mjpaia.com/wp-content/uploads/2012/06/SVMC-ER-MainOperatingRoom-e1338921334793-940x626.jpg",
     hospitalType: "private",
-    distanceFromCenter: "5.2 km",
+    distance: "5.2 km",
     open: true
   }
 ];

@@ -15,7 +15,7 @@ export const goaHospitals: Hospital[] = [
     ratingCount: 245,
     image: "https://images.onlymyhealth.com/imported/images/2021/June/16_Jun_2021/HomeICU_big.jpg",
     hospitalType: "government",
-    distanceFromCenter: "3.5 km",
+    distance: "3.5 km",
     open: true
   },
   {
@@ -29,7 +29,7 @@ export const goaHospitals: Hospital[] = [
     ratingCount: 175,
     image: "https://c8.alamy.com/comp/RATKP4/regions-hospital-building-showing-the-emergency-room-entrance-in-front-st-paul-minnesota-mn-usa-RATKP4.jpg",
     hospitalType: "government",
-    distanceFromCenter: "2.7 km",
+    distance: "2.7 km",
     open: true
   },
   
@@ -45,7 +45,7 @@ export const goaHospitals: Hospital[] = [
     ratingCount: 280,
     image: "https://nsmot.com/wp-content/uploads/2019/05/Modern-modular-operation-theatre-2-5030x2515.jpg",
     hospitalType: "private",
-    distanceFromCenter: "4.2 km",
+    distance: "4.2 km",
     open: true
   },
   {
@@ -59,7 +59,7 @@ export const goaHospitals: Hospital[] = [
     ratingCount: 310,
     image: "https://www.mjpaia.com/wp-content/uploads/2012/06/SVMC-ER-MainOperatingRoom-e1338921334793-940x626.jpg",
     hospitalType: "private",
-    distanceFromCenter: "5.1 km",
+    distance: "5.1 km",
     open: true
   }
 ];

@@ -14,7 +14,7 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 230,
     image: "https://thumbs.dreamstime.com/z/hospital-reception-waiting-room-chairs-building-centre-92207521.jpg",
     hospitalType: "government",
-    distanceFromCenter: "2.5 km",
+    distance: "2.5 km",
     open: true
   },
   {
@@ -28,7 +28,7 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 180,
     image: "https://thumbs.dreamstime.com/z/modern-style-hospital-building-straight-lines-concrete-facing-30588884.jpg",
     hospitalType: "government",
-    distanceFromCenter: "3.7 km",
+    distance: "3.7 km",
     open: true
   },
   {
@@ -42,7 +42,7 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 195,
     image: "https://www.hksh-hospital.com/sites/default/files/website-media/images/accommodation/paediatric-ward/img02.JPG",
     hospitalType: "private",
-    distanceFromCenter: "4.2 km",
+    distance: "4.2 km",
     open: true
   },
   {
@@ -56,7 +56,7 @@ export const biharHospitals: Hospital[] = [
     ratingCount: 167,
     image: "https://admissionxpert.in/wp-content/uploads/2020/11/Operation-Theater-Technology-img-min.jpg",
     hospitalType: "private",
-    distanceFromCenter: "3.1 km",
+    distance: "3.1 km",
     open: true
   }
 ];
