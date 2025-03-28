@@ -15,7 +15,6 @@ export const telanganaHospitals: Hospital[] = [
     ratingCount: 260,
     image: "https://images.onlymyhealth.com/imported/images/2021/June/16_Jun_2021/HomeICU_big.jpg",
     hospitalType: "government",
-    emergencyServices: true,
     distanceFromCenter: "5.3 km",
     open: true
   },
@@ -30,7 +29,6 @@ export const telanganaHospitals: Hospital[] = [
     ratingCount: 235,
     image: "https://c8.alamy.com/comp/RATKP4/regions-hospital-building-showing-the-emergency-room-entrance-in-front-st-paul-minnesota-mn-usa-RATKP4.jpg",
     hospitalType: "government",
-    emergencyServices: true,
     distanceFromCenter: "3.1 km",
     open: true
   },
@@ -47,7 +45,6 @@ export const telanganaHospitals: Hospital[] = [
     ratingCount: 340,
     image: "https://nsmot.com/wp-content/uploads/2019/05/Modern-modular-operation-theatre-2-5030x2515.jpg",
     hospitalType: "private",
-    emergencyServices: true,
     distanceFromCenter: "4.2 km",
     open: true
   },
@@ -62,7 +59,6 @@ export const telanganaHospitals: Hospital[] = [
     ratingCount: 380,
     image: "https://www.mjpaia.com/wp-content/uploads/2012/06/SVMC-ER-MainOperatingRoom-e1338921334793-940x626.jpg",
     hospitalType: "private",
-    emergencyServices: true,
     distanceFromCenter: "5.5 km",
     open: true
   }
