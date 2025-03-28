@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import ReviewForm from "@/components/ReviewForm";
 import { toast } from "sonner";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 interface DetailItemProps {
   icon: LucideIcon;
@@ -37,6 +38,17 @@ const DetailItem = ({ icon: Icon, title, value }: DetailItemProps) => (
     </div>
   </div>
 );
+
+// Doctor profile images
+const doctorImages = [
+  "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  "https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1964&q=80",
+  "https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+  "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+  "https://images.unsplash.com/photo-1618498082410-b4aa22193b38?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+  "https://images.unsplash.com/photo-1582750433449-648ed127bb54?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+];
 
 const HospitalDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -65,11 +77,11 @@ const HospitalDetail = () => {
       "Mental Health Services"
     ],
     doctors: [
-      { name: "Dr. Sarah Johnson", specialty: "Cardiology", rating: 4.9 },
-      { name: "Dr. Michael Chen", specialty: "Neurology", rating: 4.8 },
-      { name: "Dr. Emily Rodriguez", specialty: "Pediatrics", rating: 4.7 },
-      { name: "Dr. David Park", specialty: "Orthopedics", rating: 4.8 },
-      { name: "Dr. Lisa Wong", specialty: "Oncology", rating: 4.9 }
+      { name: "Dr. Sarah Johnson", specialty: "Cardiology", rating: 4.9, image: doctorImages[0] },
+      { name: "Dr. Michael Chen", specialty: "Neurology", rating: 4.8, image: doctorImages[1] },
+      { name: "Dr. Emily Rodriguez", specialty: "Pediatrics", rating: 4.7, image: doctorImages[2] },
+      { name: "Dr. David Park", specialty: "Orthopedics", rating: 4.8, image: doctorImages[3] },
+      { name: "Dr. Lisa Wong", specialty: "Oncology", rating: 4.9, image: doctorImages[4] }
     ],
     reviews: [
       { user: "John D.", rating: 5, comment: "Excellent care from the moment I arrived. The staff was attentive and professional." },
@@ -294,9 +306,19 @@ const HospitalDetail = () => {
               <h2 className="text-2xl font-semibold mb-6">Medical Staff</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {hospitalDetails.doctors.map((doctor, index) => (
-                  <div key={index} className="glass p-6 rounded-xl">
-                    <div className="w-16 h-16 rounded-full bg-medical-100 mb-4 flex items-center justify-center text-medical-600 font-medium">
-                      {doctor.name.split(' ').map(n => n[0]).join('')}
+                  <motion.div 
+                    key={index} 
+                    className="glass p-6 rounded-xl"
+                    whileHover={{ y: -5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div className="mb-4">
+                      <Avatar className="w-20 h-20 border-2 border-medical-100">
+                        <AvatarImage src={doctor.image} alt={doctor.name} />
+                        <AvatarFallback className="bg-medical-100 text-medical-600 text-lg font-medium">
+                          {doctor.name.split(' ').map(n => n[0]).join('')}
+                        </AvatarFallback>
+                      </Avatar>
                     </div>
                     <h3 className="font-semibold text-lg">{doctor.name}</h3>
                     <p className="text-muted-foreground mb-2">{doctor.specialty}</p>
@@ -304,7 +326,7 @@ const HospitalDetail = () => {
                       <Star className="w-4 h-4 fill-yellow-400 text-yellow-400 mr-1" />
                       <span>{doctor.rating}</span>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
