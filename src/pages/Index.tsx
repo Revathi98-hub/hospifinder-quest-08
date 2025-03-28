@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import SearchBox from "@/components/SearchBox";
 import HospitalCard from "@/components/HospitalCard";
 import { hospitals } from "@/data/hospitalData";
-import { MapPin } from "lucide-react";
 
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -50,20 +49,6 @@ const Index = () => {
           >
             <SearchBox variant="large" className="max-w-3xl mx-auto shadow-lg" />
           </motion.div>
-        </motion.div>
-        
-        <motion.div 
-          className="container-custom mt-10 flex justify-center space-x-4"
-          initial={{ opacity: 0 }}
-          animate={isLoaded ? { opacity: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.6 }}
-        >
-          <div className="flex items-center">
-            <MapPin className="w-5 h-5 text-medical-500 mr-2" />
-            <button className="text-medical-600 hover:text-medical-700 transition-colors">
-              Use my current location
-            </button>
-          </div>
         </motion.div>
       </section>
       
