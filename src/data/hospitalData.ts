@@ -25,6 +25,12 @@ import { assamHospitals } from "./hospitals/assam";
 import { biharHospitals } from "./hospitals/bihar";
 import { haryanaHospitals } from "./hospitals/haryana";
 import { arunachalPradeshHospitals } from "./hospitals/arunachal-pradesh";
+import { chhattisgarhHospitals } from "./hospitals/chhattisgarh";
+import { goaHospitals } from "./hospitals/goa";
+import { himachalPradeshHospitals } from "./hospitals/himachal-pradesh";
+import { jharkhandHospitals } from "./hospitals/jharkhand";
+import { madhyaPradeshHospitals } from "./hospitals/madhya-pradesh";
+import { telanganaHospitals } from "./hospitals/telangana";
 import { 
   getHospitalById as getHospitalByIdUtil,
   searchHospitals as searchHospitalsUtil,
@@ -57,7 +63,13 @@ export const hospitals: Hospital[] = [
   ...assamHospitals,
   ...biharHospitals,
   ...haryanaHospitals,
-  ...arunachalPradeshHospitals
+  ...arunachalPradeshHospitals,
+  ...chhattisgarhHospitals,
+  ...goaHospitals,
+  ...himachalPradeshHospitals,
+  ...jharkhandHospitals,
+  ...madhyaPradeshHospitals,
+  ...telanganaHospitals
 ];
 
 // Function to get hospital by ID
