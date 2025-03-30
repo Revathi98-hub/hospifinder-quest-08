@@ -12,14 +12,22 @@ import {
   Building2, 
   Shield, 
   Users,
+  Calendar,
   LucideIcon
 } from "lucide-react";
 import { getHospitalById } from "@/data/hospitalData";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import ReviewForm from "@/components/ReviewForm";
+import AppointmentForm from "@/components/AppointmentForm";
 import { toast } from "sonner";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+} from "@/components/ui/dialog";
 
 interface DetailItemProps {
   icon: LucideIcon;
@@ -56,6 +64,7 @@ const HospitalDetail = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [isLoaded, setIsLoaded] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
+  const [showAppointmentForm, setShowAppointmentForm] = useState(false);
   const [hospitalDetails, setHospitalDetails] = useState({
     overview: {
       description: "Metropolitan General Hospital is a leading healthcare facility providing comprehensive medical services across multiple specialties. Founded in 1965, the hospital has grown to become one of the most trusted medical centers in the region, known for its advanced technology, skilled medical professionals, and patient-centered care approach.",
@@ -143,6 +152,10 @@ const HospitalDetail = () => {
     // Auto-switch to reviews tab
     setActiveTab("reviews");
   };
+
+  const handleAppointmentSuccess = () => {
+    setShowAppointmentForm(false);
+  };
   
   return (
     <div className="min-h-screen pb-20">
@@ -195,7 +208,18 @@ const HospitalDetail = () => {
       {/* Main Content */}
       <div className="container-custom mt-8">
         <div className="glass rounded-xl p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Quick Information</h2>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
+            <h2 className="text-xl font-semibold mb-4 sm:mb-0">Quick Information</h2>
+            
+            <Button 
+              className="bg-medical-600 hover:bg-medical-700 text-white"
+              onClick={() => setShowAppointmentForm(true)}
+            >
+              <Calendar className="mr-2 h-4 w-4" />
+              Book Appointment
+            </Button>
+          </div>
+          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <DetailItem 
               icon={Phone} 
@@ -385,6 +409,22 @@ const HospitalDetail = () => {
           )}
         </div>
       </div>
+
+      {/* Appointment Booking Dialog */}
+      <Dialog open={showAppointmentForm} onOpenChange={setShowAppointmentForm}>
+        <DialogPortal>
+          <DialogOverlay className="bg-black/50 backdrop-blur-sm" />
+          <DialogContent className="sm:max-w-[600px] p-0 overflow-auto max-h-[90vh]">
+            {hospital && (
+              <AppointmentForm 
+                hospital={hospital} 
+                onSuccess={handleAppointmentSuccess}
+                onCancel={() => setShowAppointmentForm(false)}
+              />
+            )}
+          </DialogContent>
+        </DialogPortal>
+      </Dialog>
     </div>
   );
 };

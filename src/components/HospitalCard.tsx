@@ -1,8 +1,9 @@
 
-import { Star, MapPin, Clock, Phone } from "lucide-react";
+import { Star, MapPin, Clock, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 export interface Hospital {
   id: string;
@@ -61,6 +62,12 @@ const HospitalCard = ({ hospital, className }: HospitalCardProps) => {
   // The image to display with fallback strategies
   const displayImage = imageError ? (getRandomImage() || typeFallbackImage) : hospital.image;
 
+  const handleBookAppointment = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault(); // Prevent navigation to detail page
+    // Navigate to detail page with appointment form open
+    window.location.href = `/hospital/${hospital.id}?booking=true`;
+  };
+
   return (
     <Link 
       to={`/hospital/${hospital.id}`}
@@ -111,17 +118,26 @@ const HospitalCard = ({ hospital, className }: HospitalCardProps) => {
           <span>{hospital.address}</span>
         </div>
         
-        <div className="flex items-center space-x-2 text-sm mb-1 text-muted-foreground mt-auto">
+        <div className="flex items-center space-x-2 text-sm mb-1 text-muted-foreground">
           <Clock className="w-4 h-4 flex-shrink-0" />
           <span className={hospital.open ? "text-green-600" : "text-red-500"}>
             {hospital.open ? "Open" : "Closed"} · {hospital.openHours}
           </span>
         </div>
         
-        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+        <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-3">
           <Phone className="w-4 h-4 flex-shrink-0" />
           <span>{hospital.phone}</span>
         </div>
+        
+        <Button 
+          className="mt-auto w-full bg-medical-600 hover:bg-medical-700 text-white"
+          size="sm"
+          onClick={handleBookAppointment}
+        >
+          <Calendar className="w-4 h-4 mr-2" />
+          Book Appointment
+        </Button>
       </div>
     </Link>
   );
