@@ -1,6 +1,5 @@
-
 import { Star, MapPin, Clock, Phone, Calendar } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -40,6 +39,7 @@ const additionalHospitalImages = [
 
 const HospitalCard = ({ hospital, className }: HospitalCardProps) => {
   const [imageError, setImageError] = useState(false);
+  const navigate = useNavigate();
   
   // Get a random image based on hospital ID to ensure consistency
   const getRandomImage = () => {
@@ -64,8 +64,8 @@ const HospitalCard = ({ hospital, className }: HospitalCardProps) => {
 
   const handleBookAppointment = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault(); // Prevent navigation to detail page
-    // Navigate to detail page with appointment form open
-    window.location.href = `/hospital/${hospital.id}?booking=true`;
+    // Use navigate instead of direct window.location assignment
+    navigate(`/hospital/${hospital.id}?booking=true`);
   };
 
   return (
