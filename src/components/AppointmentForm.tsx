@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { format } from "date-fns";
-import { Calendar } from "lucide-react";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { Hospital } from "@/components/HospitalCard";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
@@ -196,15 +196,21 @@ const AppointmentForm = ({ hospital, onSuccess, onCancel }: AppointmentFormProps
                           ) : (
                             <span>Pick a date</span>
                           )}
-                          <Calendar className="ml-auto h-4 w-4 opacity-50" />
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
                       </FormControl>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0" align="start">
-                      <CalendarComponent
+                    <PopoverContent className="w-auto p-0 z-50" align="start">
+                      <Calendar
                         mode="single"
                         selected={field.value}
-                        onSelect={field.onChange}
+                        onSelect={(date) => {
+                          if (date) {
+                            // Make sure we explicitly set the value
+                            field.onChange(date);
+                            console.log("Date selected:", date);
+                          }
+                        }}
                         disabled={(date) => 
                           date < new Date() || date > new Date(new Date().setMonth(new Date().getMonth() + 2))
                         }
