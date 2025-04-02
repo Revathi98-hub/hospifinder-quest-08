@@ -34,20 +34,28 @@ const NearMe = () => {
     
     if (hospitalType) {
       filteredHospitals = filteredHospitals.filter(hospital => 
-        hospital.type.toLowerCase() === hospitalType.toLowerCase()
+        hospital.hospitalType?.toLowerCase() === hospitalType.toLowerCase()
       );
     }
     
+    // For state and district, we'll search within the address field
     if (state) {
       filteredHospitals = filteredHospitals.filter(hospital => 
-        hospital.state.toLowerCase() === state.toLowerCase()
+        hospital.address.toLowerCase().includes(state.toLowerCase())
       );
       
       if (district) {
         filteredHospitals = filteredHospitals.filter(hospital => 
-          hospital.district.toLowerCase() === district.toLowerCase()
+          hospital.address.toLowerCase().includes(district.toLowerCase())
         );
       }
+    }
+    
+    // If a general location is provided
+    if (location && !state && !district) {
+      filteredHospitals = filteredHospitals.filter(hospital => 
+        hospital.address.toLowerCase().includes(location.toLowerCase())
+      );
     }
     
     setNearbyHospitals(filteredHospitals);
