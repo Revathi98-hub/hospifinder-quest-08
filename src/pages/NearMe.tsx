@@ -1,22 +1,20 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { hospitals, getHospitalsByLocation } from "@/data/hospitalData";
+import { hospitals } from "@/data/hospitalData";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 
-// Import our new components
-import LocationFinder from "@/components/location/LocationFinder";
+// Import our components
 import RadiusSelector from "@/components/location/RadiusSelector";
 import HospitalList from "@/components/location/HospitalList";
 import LoadingState from "@/components/location/LoadingState";
+import SearchBox from "@/components/SearchBox";
 
 const NearMe = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isLocating, setIsLocating] = useState(false);
   const [nearbyHospitals, setNearbyHospitals] = useState(hospitals);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [userCoordinates, setUserCoordinates] = useState<{lat: number, lng: number} | null>(null);
   const [searchRadius, setSearchRadius] = useState<number>(5);
   
   useEffect(() => {
@@ -30,37 +28,39 @@ const NearMe = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleLocationDetected = (latitude: number, longitude: number) => {
-    setUserCoordinates({ lat: latitude, lng: longitude });
+  const handleSearch = (location: string, state?: string, district?: string, hospitalType?: string) => {
+    // Filter hospitals based on search criteria
+    let filteredHospitals = hospitals;
     
-    // Filter hospitals by location radius
-    const locatedHospitals = getHospitalsByLocation(latitude, longitude, searchRadius);
+    if (hospitalType) {
+      filteredHospitals = filteredHospitals.filter(hospital => 
+        hospital.type.toLowerCase() === hospitalType.toLowerCase()
+      );
+    }
     
-    setNearbyHospitals(locatedHospitals);
+    if (state) {
+      filteredHospitals = filteredHospitals.filter(hospital => 
+        hospital.state.toLowerCase() === state.toLowerCase()
+      );
+      
+      if (district) {
+        filteredHospitals = filteredHospitals.filter(hospital => 
+          hospital.district.toLowerCase() === district.toLowerCase()
+        );
+      }
+    }
+    
+    setNearbyHospitals(filteredHospitals);
     
     toast({
-      title: "Location detected",
-      description: `Showing hospitals within ${searchRadius} km of your location.`,
+      title: "Search complete",
+      description: `Found ${filteredHospitals.length} hospitals based on your criteria.`,
     });
   };
 
   const handleRadiusChange = (value: number[]) => {
     const newRadius = value[0];
     setSearchRadius(newRadius);
-    
-    if (userCoordinates) {
-      const locatedHospitals = getHospitalsByLocation(
-        userCoordinates.lat, 
-        userCoordinates.lng,
-        newRadius
-      );
-      setNearbyHospitals(locatedHospitals);
-      
-      toast({
-        title: "Radius Updated",
-        description: `Showing hospitals within ${newRadius} km of your location.`,
-      });
-    }
   };
   
   return (
@@ -74,21 +74,19 @@ const NearMe = () => {
         >
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gradient-primary">Hospitals Near Me</h1>
           <p className="text-muted-foreground mb-8">
-            Find healthcare facilities closest to your current location for immediate medical attention.
+            Find healthcare facilities closest to your location for immediate medical attention.
           </p>
           
-          <LocationFinder 
-            onLocationDetected={handleLocationDetected}
-            isLocating={isLocating}
-            setIsLocating={setIsLocating}
+          <SearchBox 
+            className="shadow-lg mb-6"
+            variant="large"
+            onSearch={handleSearch}
           />
           
-          {userCoordinates && (
-            <RadiusSelector 
-              searchRadius={searchRadius}
-              onRadiusChange={handleRadiusChange}
-            />
-          )}
+          <RadiusSelector 
+            searchRadius={searchRadius}
+            onRadiusChange={handleRadiusChange}
+          />
         </motion.div>
         
         {isLoading ? (
@@ -97,7 +95,7 @@ const NearMe = () => {
           <HospitalList 
             hospitals={nearbyHospitals}
             isLoaded={isLoaded}
-            userCoordinates={userCoordinates}
+            userCoordinates={null}
             searchRadius={searchRadius}
           />
         )}
