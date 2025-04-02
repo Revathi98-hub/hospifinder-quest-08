@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -27,6 +26,7 @@ import {
   DialogContent,
   DialogOverlay,
   DialogPortal,
+  DialogTitle,
 } from "@/components/ui/dialog";
 
 interface DetailItemProps {
@@ -47,7 +47,6 @@ const DetailItem = ({ icon: Icon, title, value }: DetailItemProps) => (
   </div>
 );
 
-// Doctor profile images
 const doctorImages = [
   "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
   "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -134,7 +133,6 @@ const HospitalDetail = () => {
   ];
   
   const handleSubmitReview = (review: { rating: number; comment: string }) => {
-    // In a real app, this would save to a database
     const newReview = {
       user: "You",
       rating: review.rating,
@@ -149,7 +147,6 @@ const HospitalDetail = () => {
     setShowReviewForm(false);
     toast.success("Thank you for your review!");
     
-    // Auto-switch to reviews tab
     setActiveTab("reviews");
   };
 
@@ -159,7 +156,6 @@ const HospitalDetail = () => {
   
   return (
     <div className="min-h-screen pb-20">
-      {/* Hero Section with Hospital Image */}
       <div className="relative w-full h-[40vh] overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center" 
@@ -205,7 +201,6 @@ const HospitalDetail = () => {
         </div>
       </div>
       
-      {/* Main Content */}
       <div className="container-custom mt-8">
         <div className="glass rounded-xl p-6 mb-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4">
@@ -244,7 +239,6 @@ const HospitalDetail = () => {
           </div>
         </div>
         
-        {/* Tabs Navigation */}
         <div className="border-b mb-6">
           <nav className="flex space-x-8">
             {tabs.map(tab => (
@@ -270,7 +264,6 @@ const HospitalDetail = () => {
           </nav>
         </div>
         
-        {/* Tab Content */}
         <div className="animate-fade-in">
           {activeTab === "overview" && (
             <div>
@@ -410,11 +403,11 @@ const HospitalDetail = () => {
         </div>
       </div>
 
-      {/* Appointment Booking Dialog */}
       <Dialog open={showAppointmentForm} onOpenChange={setShowAppointmentForm}>
         <DialogPortal>
           <DialogOverlay className="bg-black/50 backdrop-blur-sm" />
           <DialogContent className="sm:max-w-[600px] p-0 overflow-auto max-h-[90vh]">
+            <DialogTitle className="sr-only">Book Appointment</DialogTitle>
             {hospital && (
               <AppointmentForm 
                 hospital={hospital} 
