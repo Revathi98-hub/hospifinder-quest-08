@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ChatMessage, { ChatMessage as ChatMessageType } from "./ChatMessage";
-import { symptomsToDiseasesMap } from "./symptomsData";
+import { symptomsToDiseasesMap, diseasesWithSymptoms } from "./symptomsData";
 
 const HealthcareChatbot = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([
@@ -74,9 +74,12 @@ const HealthcareChatbot = () => {
     
     // Get possible diseases based on symptoms
     const possibleDiseases = new Set<string>();
+    const diseaseMatches: Record<string, number> = {};
+    
     matchedSymptoms.forEach(symptom => {
       symptomsToDiseasesMap[symptom].forEach(disease => {
         possibleDiseases.add(disease);
+        diseaseMatches[disease] = (diseaseMatches[disease] || 0) + 1;
       });
     });
     
@@ -84,11 +87,16 @@ const HealthcareChatbot = () => {
       return "I couldn't determine any specific conditions based on the symptoms you've described. Please consult with a healthcare professional for proper diagnosis.";
     }
     
+    // Sort diseases by number of matching symptoms
+    const sortedDiseases = Array.from(possibleDiseases).sort((a, b) => {
+      return (diseaseMatches[b] || 0) - (diseaseMatches[a] || 0);
+    });
+    
     // Create response message
     let response = `Based on the symptoms you've mentioned (${matchedSymptoms.join(", ")}), here are some possible conditions:\n\n`;
     
-    Array.from(possibleDiseases).forEach(disease => {
-      response += `• ${disease}\n`;
+    sortedDiseases.slice(0, 5).forEach(disease => {
+      response += `• ${disease} (${diseaseMatches[disease]} matching symptoms)\n`;
     });
     
     response += "\nPlease note that this is not a professional diagnosis. It's important to consult with a healthcare provider for proper evaluation.";
