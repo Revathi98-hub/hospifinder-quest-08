@@ -31,6 +31,7 @@ import { himachalPradeshHospitals } from "./hospitals/himachal-pradesh";
 import { jharkhandHospitals } from "./hospitals/jharkhand";
 import { madhyaPradeshHospitals } from "./hospitals/madhya-pradesh";
 import { telanganaHospitals } from "./hospitals/telangana";
+import { districtHospitals } from "./hospitals/district-hospitals";
 import { 
   getHospitalById as getHospitalByIdUtil,
   searchHospitals as searchHospitalsUtil,
@@ -69,7 +70,9 @@ export const hospitals: Hospital[] = [
   ...himachalPradeshHospitals,
   ...jharkhandHospitals,
   ...madhyaPradeshHospitals,
-  ...telanganaHospitals
+  ...telanganaHospitals,
+  // Add all district hospitals
+  ...Object.values(districtHospitals).flat()
 ];
 
 // Function to get hospital by ID
@@ -100,3 +103,10 @@ export const getHospitalsByLocation = (
 export const getAllSpecialties = (): string[] => {
   return getAllSpecialtiesUtil(hospitals);
 };
+
+// Function to get hospitals by district and state
+export const getHospitalsByDistrict = (state: string, district: string): Hospital[] => {
+  const key = `${state}_${district}`.toLowerCase().replace(/\s+/g, '_');
+  return districtHospitals[key] || [];
+};
+
