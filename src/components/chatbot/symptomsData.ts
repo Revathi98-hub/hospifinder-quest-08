@@ -4,20 +4,20 @@
 
 export const symptomsToDiseasesMap: { [key: string]: string[] } = {
   // Original symptoms
-  "fever": ["Common Cold", "Flu", "COVID-19", "Pneumonia", "Meningitis", "Dengue Fever", "Tuberculosis"],
+  "fever": ["Common Cold", "Flu", "COVID-19", "Pneumonia", "Meningitis", "Dengue Fever", "Tuberculosis", "Malaria", "Typhoid"],
   "cough": ["Common Cold", "Flu", "COVID-19", "Bronchitis", "Pneumonia", "Asthma", "Tuberculosis"],
   "headache": ["Migraine", "Tension Headache", "Sinusitis", "Flu", "Dehydration", "Concussion", "Hypertension", "Dengue Fever"],
   "sore throat": ["Common Cold", "Flu", "Strep Throat", "Tonsillitis", "Laryngitis"],
   "runny nose": ["Common Cold", "Flu", "Allergies", "Sinusitis"],
   "fatigue": ["Flu", "Common Cold", "Depression", "Anemia", "Sleep Apnea", "Hypothyroidism", "COVID-19", "Tuberculosis", "Pneumonia", "Diabetes"],
-  "nausea": ["Food Poisoning", "Migraine", "Motion Sickness", "Morning Sickness", "Gastroenteritis"],
-  "vomiting": ["Food Poisoning", "Gastroenteritis", "Migraine", "Morning Sickness", "Labyrinthitis"],
-  "diarrhea": ["Food Poisoning", "Gastroenteritis", "Irritable Bowel Syndrome", "Inflammatory Bowel Disease"],
-  "abdominal pain": ["Appendicitis", "Gastritis", "Irritable Bowel Syndrome", "Kidney Stones", "Gallstones"],
-  "chest pain": ["Heart Attack", "Angina", "Pulmonary Embolism", "Pneumonia", "Acid Reflux", "Hypertension"],
-  "shortness of breath": ["Asthma", "COVID-19", "Pneumonia", "Heart Failure", "Anxiety", "Pulmonary Embolism"],
-  "dizziness": ["Low Blood Pressure", "Anemia", "Inner Ear Problems", "Anxiety", "Dehydration", "Hypertension", "Migraine"],
-  "rash": ["Allergic Reaction", "Eczema", "Psoriasis", "Chickenpox", "Measles", "Hives", "Dengue Fever"],
+  "nausea": ["Food Poisoning", "Migraine", "Motion Sickness", "Morning Sickness", "Gastroenteritis", "Gastritis", "Pregnancy"],
+  "vomiting": ["Food Poisoning", "Gastroenteritis", "Migraine", "Morning Sickness", "Labyrinthitis", "Gastritis", "Pregnancy", "Motion Sickness"],
+  "diarrhea": ["Food Poisoning", "Gastroenteritis", "Irritable Bowel Syndrome", "Inflammatory Bowel Disease", "Cholera"],
+  "abdominal pain": ["Appendicitis", "Gastritis", "Irritable Bowel Syndrome", "Kidney Stones", "Gallstones", "Peptic Ulcer"],
+  "chest pain": ["Heart Attack", "Angina", "Pulmonary Embolism", "Pneumonia", "Acid Reflux", "Hypertension", "GERD", "Costochondritis", "Anxiety"],
+  "shortness of breath": ["Asthma", "COVID-19", "Pneumonia", "Heart Failure", "Anxiety", "Pulmonary Embolism", "COPD", "Heart Disease"],
+  "dizziness": ["Low Blood Pressure", "Anemia", "Inner Ear Problems", "Anxiety", "Dehydration", "Hypertension", "Migraine", "Stroke"],
+  "rash": ["Allergic Reaction", "Eczema", "Psoriasis", "Chickenpox", "Measles", "Hives", "Dengue Fever", "Lupus"],
   "joint pain": ["Arthritis", "Gout", "Lupus", "Lyme Disease", "Fibromyalgia"],
   "back pain": ["Muscle Strain", "Herniated Disc", "Sciatica", "Kidney Infection", "Arthritis"],
   "sinus pressure": ["Sinusitis", "Allergies", "Common Cold"],
@@ -28,9 +28,9 @@ export const symptomsToDiseasesMap: { [key: string]: string[] } = {
   "weight loss": ["Diabetes", "Hyperthyroidism", "Depression", "Cancer", "Inflammatory Bowel Disease", "Tuberculosis"],
   "muscle aches": ["Flu", "COVID-19", "Fibromyalgia", "Chronic Fatigue Syndrome", "Lyme Disease"],
   
-  // New symptoms
-  "chills": ["Flu", "Pneumonia", "Dengue Fever"],
-  "frequent urination": ["Diabetes", "Urinary Tract Infection", "Prostate Issues"],
+  // Already added symptoms
+  "chills": ["Flu", "Pneumonia", "Dengue Fever", "Malaria", "Tuberculosis"],
+  "frequent urination": ["Diabetes", "Urinary Tract Infection", "Prostate Issues", "Kidney Infection"],
   "excessive thirst": ["Diabetes", "Dehydration"],
   "blurred vision": ["Diabetes", "Hypertension", "Migraine"],
   "slow-healing wounds": ["Diabetes", "Poor Circulation"],
@@ -47,7 +47,17 @@ export const symptomsToDiseasesMap: { [key: string]: string[] } = {
   "coughing blood": ["Tuberculosis", "Lung Cancer", "Severe Pneumonia"],
   "dry cough": ["COVID-19", "Asthma", "Allergies"],
   "loss of taste": ["COVID-19", "Zinc Deficiency", "Sinus Infection"],
-  "loss of smell": ["COVID-19", "Nasal Polyps", "Sinus Infection"]
+  "loss of smell": ["COVID-19", "Nasal Polyps", "Sinus Infection"],
+  
+  // New symptoms from the provided list
+  "constipation": ["Low Fiber Diet", "Irritable Bowel Syndrome", "Hypothyroidism"],
+  "lightheadedness": ["Low Blood Pressure", "Anemia", "Dehydration", "Stroke"],
+  "seizures": ["Epilepsy", "Brain Tumor", "Stroke"],
+  "memory loss": ["Alzheimer's", "Dementia", "Vitamin B12 Deficiency"],
+  "itching": ["Fungal Infection", "Scabies", "Eczema", "Allergies"],
+  "darkening of skin": ["Addison's Disease", "Melasma", "Vitamin Deficiency"],
+  "painful urination": ["Urinary Tract Infection", "Kidney Stones", "Bladder Infection"],
+  "missed periods": ["Polycystic Ovary Syndrome", "Pregnancy", "Thyroid Disorders"]
 };
 
 // Diseases with their primary symptoms for reference
@@ -59,5 +69,13 @@ export const diseasesWithSymptoms = {
   "Pneumonia": ["Cough with phlegm", "Fever", "Shortness of breath", "Chest pain", "Fatigue"],
   "Dengue Fever": ["High fever", "Severe body aches", "Skin rash", "Bleeding gums", "Bleeding nose", "Headache"],
   "Tuberculosis": ["Chronic cough", "Coughing blood", "Unexplained weight loss", "Night sweats", "Fever", "Fatigue"],
-  "COVID-19": ["Fever", "Dry cough", "Shortness of breath", "Loss of taste", "Loss of smell", "Fatigue"]
+  "COVID-19": ["Fever", "Dry cough", "Shortness of breath", "Loss of taste", "Loss of smell", "Fatigue"],
+  "Malaria": ["Fever", "Chills", "Headache", "Muscle aches", "Fatigue"],
+  "Gastritis": ["Abdominal pain", "Nausea", "Vomiting", "Loss of appetite"],
+  "Irritable Bowel Syndrome": ["Abdominal pain", "Diarrhea", "Constipation", "Bloating"],
+  "Asthma": ["Shortness of breath", "Wheezing", "Chest tightness", "Cough"],
+  "Allergies": ["Sneezing", "Runny nose", "Itching", "Rash", "Watery eyes"],
+  "Urinary Tract Infection": ["Frequent urination", "Painful urination", "Cloudy urine", "Pelvic pain"],
+  "Alzheimer's Disease": ["Memory loss", "Confusion", "Mood changes", "Difficulty with familiar tasks"]
 };
+
