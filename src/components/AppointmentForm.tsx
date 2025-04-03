@@ -8,6 +8,8 @@ import { Calendar as CalendarIcon } from "lucide-react";
 import { Hospital } from "@/components/HospitalCard";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
 import {
   Form,
   FormControl,
@@ -32,6 +34,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import AuthForm from "@/components/AuthForm";
 
 // Schema for form validation
 const formSchema = z.object({
@@ -62,41 +65,82 @@ interface AppointmentFormProps {
 
 const AppointmentForm = ({ hospital, onSuccess, onCancel }: AppointmentFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
   
   // Initialize form with react-hook-form
   const form = useForm<AppointmentFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      email: "",
+      email: user?.email || "",
       phone: "",
       notes: "",
     },
   });
 
   const onSubmit = async (data: AppointmentFormValues) => {
+    if (!user) {
+      toast.error("Please sign in to book an appointment");
+      return;
+    }
+
     setIsSubmitting(true);
     
     try {
-      // In a real app, this would call an API to save the appointment
-      console.log("Appointment data:", {
-        ...data,
-        hospitalId: hospital.id,
-        hospitalName: hospital.name,
-      });
+      // Format the date and time
+      const appointmentDateTime = new Date(data.date);
+      const [hours, minutes] = data.time.split(':');
+      const isPM = data.time.includes('PM');
+      let hour = parseInt(hours);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      if (isPM && hour !== 12) {
+        hour += 12;
+      } else if (!isPM && hour === 12) {
+        hour = 0;
+      }
+      
+      appointmentDateTime.setHours(hour, parseInt(minutes));
+      
+      // Save appointment to Supabase
+      const { error } = await supabase
+        .from('appointments')
+        .insert({
+          hospital_id: hospital.id,
+          user_id: user.id,
+          patient_name: data.name,
+          email: data.email,
+          phone: data.phone,
+          department: data.department,
+          appointment_date: appointmentDateTime.toISOString(),
+          notes: data.notes || null,
+          status: 'pending',
+          created_at: new Date().toISOString(),
+        });
+        
+      if (error) throw error;
       
       toast.success("Appointment booked successfully! The hospital will contact you to confirm.");
       onSuccess();
-    } catch (error) {
+    } catch (error: any) {
+      toast.error(error.message || "Failed to book appointment");
       console.error("Error booking appointment:", error);
-      toast.error("Failed to book appointment. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  // If user is not logged in, show auth form
+  if (!user) {
+    return (
+      <div className="p-6 rounded-xl bg-white">
+        <h2 className="text-xl font-semibold mb-4">Sign in to Book an Appointment</h2>
+        <p className="text-muted-foreground mb-6">
+          Please sign in or create an account to book an appointment at {hospital.name}
+        </p>
+        <AuthForm />
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 rounded-xl bg-white">
@@ -204,13 +248,7 @@ const AppointmentForm = ({ hospital, onSuccess, onCancel }: AppointmentFormProps
                       <Calendar
                         mode="single"
                         selected={field.value}
-                        onSelect={(date) => {
-                          if (date) {
-                            // Make sure we explicitly set the value
-                            field.onChange(date);
-                            console.log("Date selected:", date);
-                          }
-                        }}
+                        onSelect={field.onChange}
                         disabled={(date) => 
                           date < new Date() || date > new Date(new Date().setMonth(new Date().getMonth() + 2))
                         }

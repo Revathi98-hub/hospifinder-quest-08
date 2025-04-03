@@ -5,19 +5,29 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/lib/supabase";
 
 interface ReviewFormProps {
+  hospitalId: string;
   onSubmit: (review: { rating: number; comment: string }) => void;
   onCancel: () => void;
 }
 
-const ReviewForm = ({ onSubmit, onCancel }: ReviewFormProps) => {
+const ReviewForm = ({ hospitalId, onSubmit, onCancel }: ReviewFormProps) => {
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!user) {
+      toast.error("Please sign in to leave a review");
+      return;
+    }
     
     if (rating === 0) {
       toast.error("Please select a rating");
@@ -29,7 +39,30 @@ const ReviewForm = ({ onSubmit, onCancel }: ReviewFormProps) => {
       return;
     }
     
-    onSubmit({ rating, comment });
+    setIsSubmitting(true);
+    
+    try {
+      // Save review to Supabase
+      const { error } = await supabase
+        .from('reviews')
+        .insert({
+          hospital_id: hospitalId,
+          user_id: user.id,
+          rating,
+          comment,
+          created_at: new Date().toISOString(),
+        });
+        
+      if (error) throw error;
+      
+      toast.success("Review submitted successfully!");
+      onSubmit({ rating, comment });
+    } catch (error: any) {
+      toast.error(error.message || "Failed to submit review");
+      console.error("Error submitting review:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -75,11 +108,11 @@ const ReviewForm = ({ onSubmit, onCancel }: ReviewFormProps) => {
       </div>
       
       <div className="flex justify-end gap-3">
-        <Button type="button" variant="outline" onClick={onCancel}>
+        <Button type="button" variant="outline" onClick={onCancel} disabled={isSubmitting}>
           Cancel
         </Button>
-        <Button type="submit">
-          Submit Review
+        <Button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Submit Review"}
         </Button>
       </div>
     </form>
