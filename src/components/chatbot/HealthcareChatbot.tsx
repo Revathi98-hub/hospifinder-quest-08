@@ -6,6 +6,7 @@ import { Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ChatMessage, { ChatMessage as ChatMessageType } from "./ChatMessage";
 import { symptomsToDiseasesMap, diseasesWithSymptoms } from "./symptomsData";
+import { getHealthTipsForConditions } from "./healthTipsData";
 
 const HealthcareChatbot = () => {
   const [messages, setMessages] = useState<ChatMessageType[]>([
@@ -17,6 +18,7 @@ const HealthcareChatbot = () => {
     },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [identifiedConditions, setIdentifiedConditions] = useState<string[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
   
@@ -44,7 +46,7 @@ const HealthcareChatbot = () => {
     
     // Process user message and generate response
     setTimeout(() => {
-      const botResponse = generateResponse(inputValue);
+      const { botResponse, conditions } = generateResponse(inputValue);
       const botMessage: ChatMessageType = {
         id: (Date.now() + 1).toString(),
         role: "bot",
@@ -53,10 +55,34 @@ const HealthcareChatbot = () => {
       };
       
       setMessages((prev) => [...prev, botMessage]);
+      
+      // If conditions were identified and there are health tips available, show them
+      if (conditions.length > 0) {
+        setIdentifiedConditions((prev) => {
+          // Combine previous and new conditions, removing duplicates
+          const combinedConditions = [...prev, ...conditions];
+          return [...new Set(combinedConditions)];
+        });
+        
+        // After a short delay, send health tips as a separate message
+        setTimeout(() => {
+          const healthTips = getHealthTipsForConditions(conditions);
+          if (healthTips) {
+            const tipsMessage: ChatMessageType = {
+              id: (Date.now() + 2).toString(),
+              role: "bot",
+              content: `✨ **Personalized Health Tips**: \n\n${healthTips}`,
+              timestamp: new Date(),
+            };
+            
+            setMessages((prev) => [...prev, tipsMessage]);
+          }
+        }, 1000);
+      }
     }, 1000);
   };
   
-  const generateResponse = (userInput: string): string => {
+  const generateResponse = (userInput: string): { botResponse: string; conditions: string[] } => {
     const input = userInput.toLowerCase();
     
     // Check for symptoms in the user's message
@@ -69,7 +95,10 @@ const HealthcareChatbot = () => {
     });
     
     if (matchedSymptoms.length === 0) {
-      return "I couldn't identify any specific symptoms from your message. Could you please provide more details about how you're feeling?";
+      return { 
+        botResponse: "I couldn't identify any specific symptoms from your message. Could you please provide more details about how you're feeling?", 
+        conditions: [] 
+      };
     }
     
     // Get possible diseases based on symptoms
@@ -84,13 +113,19 @@ const HealthcareChatbot = () => {
     });
     
     if (possibleDiseases.size === 0) {
-      return "I couldn't determine any specific conditions based on the symptoms you've described. Please consult with a healthcare professional for proper diagnosis.";
+      return { 
+        botResponse: "I couldn't determine any specific conditions based on the symptoms you've described. Please consult with a healthcare professional for proper diagnosis.", 
+        conditions: [] 
+      };
     }
     
     // Sort diseases by number of matching symptoms
     const sortedDiseases = Array.from(possibleDiseases).sort((a, b) => {
       return (diseaseMatches[b] || 0) - (diseaseMatches[a] || 0);
     });
+    
+    // Get top conditions (limited to 3 for relevance)
+    const topConditions = sortedDiseases.slice(0, 3);
     
     // Create response message
     let response = `Based on the symptoms you've mentioned (${matchedSymptoms.join(", ")}), here are some possible conditions:\n\n`;
@@ -101,7 +136,7 @@ const HealthcareChatbot = () => {
     
     response += "\nPlease note that this is not a professional diagnosis. It's important to consult with a healthcare provider for proper evaluation.";
     
-    return response;
+    return { botResponse: response, conditions: topConditions };
   };
   
   return (
