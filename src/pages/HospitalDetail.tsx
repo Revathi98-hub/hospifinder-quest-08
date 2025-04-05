@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Users } from "lucide-react";
 import { getHospitalById } from "@/data/hospitalData";
 import { Dialog, DialogContent, DialogOverlay, DialogPortal, DialogTitle } from "@/components/ui/dialog";
-import AppointmentForm from "@/components/AppointmentForm";
+import AppointmentForm from "@/components/appointment/AppointmentForm";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 
