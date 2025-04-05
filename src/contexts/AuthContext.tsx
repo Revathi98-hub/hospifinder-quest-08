@@ -48,20 +48,51 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
+      const { error, data } = await supabase.auth.signInWithPassword({ email, password });
+      
+      if (error) {
+        // Special handling for email not confirmed error
+        if (error.message.includes('Email not confirmed')) {
+          toast.error('Please check your email inbox and confirm your email before signing in');
+          // Optionally, we can resend the confirmation email
+          await supabase.auth.resend({
+            type: 'signup',
+            email: email,
+          });
+          toast.info('Confirmation email has been resent to your inbox');
+        } else {
+          toast.error(error.message || 'Error signing in');
+        }
+        throw error;
+      }
+      
       toast.success('Signed in successfully');
+      return data;
     } catch (error: any) {
-      toast.error(error.message || 'Error signing in');
       throw error;
     }
   };
 
   const signUp = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signUp({ email, password });
+      // Set redirectTo to current window location to handle redirection after email verification
+      const { error, data } = await supabase.auth.signUp({ 
+        email, 
+        password,
+        options: {
+          emailRedirectTo: window.location.href,
+        }
+      });
+      
       if (error) throw error;
-      toast.success('Account created! Check your email for confirmation');
+      
+      if (data.user && !data.user.confirmed_at) {
+        toast.info('Please check your email to confirm your account');
+      } else {
+        toast.success('Account created successfully');
+      }
+      
+      return data;
     } catch (error: any) {
       toast.error(error.message || 'Error signing up');
       throw error;
