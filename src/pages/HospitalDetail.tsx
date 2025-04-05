@@ -7,8 +7,9 @@ import { getHospitalById } from "@/data/hospitalData";
 import { Dialog, DialogContent, DialogOverlay, DialogPortal, DialogTitle } from "@/components/ui/dialog";
 import AppointmentForm from "@/components/AppointmentForm";
 import { toast } from "sonner";
+import { useAuth } from "@/contexts/AuthContext";
 
-// Import the new components
+// Import the components
 import HospitalHeader from "@/components/hospital-detail/HospitalHeader";
 import QuickInfo from "@/components/hospital-detail/QuickInfo";
 import TabNavigation from "@/components/hospital-detail/TabNavigation";
@@ -32,6 +33,7 @@ const HospitalDetail = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const showBookingModal = searchParams.get('booking') === 'true';
+  const { user } = useAuth();
   
   const [hospital, setHospital] = useState(id ? getHospitalById(id) : null);
   const [activeTab, setActiveTab] = useState("overview");
@@ -133,7 +135,14 @@ const HospitalDetail = () => {
 
   const handleBookAppointment = () => {
     setShowAppointmentForm(true);
+    
+    // If the URL doesn't have the booking parameter, add it
+    if (!showBookingModal) {
+      navigate(`/hospital/${id}?booking=true`, { replace: true });
+    }
   };
+  
+  console.log("Auth state:", { user, showAppointmentForm });
   
   return (
     <div className="min-h-screen pb-20">
@@ -171,7 +180,13 @@ const HospitalDetail = () => {
         </div>
       </div>
 
-      <Dialog open={showAppointmentForm} onOpenChange={setShowAppointmentForm}>
+      <Dialog open={showAppointmentForm} onOpenChange={(isOpen) => {
+        setShowAppointmentForm(isOpen);
+        // Remove the booking parameter from the URL when dialog is closed
+        if (!isOpen && showBookingModal) {
+          navigate(`/hospital/${id}`, { replace: true });
+        }
+      }}>
         <DialogPortal>
           <DialogOverlay className="bg-black/50 backdrop-blur-sm" />
           <DialogContent className="sm:max-w-[600px] p-0 overflow-auto max-h-[90vh]">

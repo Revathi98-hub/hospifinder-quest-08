@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,7 +9,7 @@ import { Hospital } from "@/components/HospitalCard";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/lib/supabase";
 import {
   Form,
   FormControl,
@@ -66,6 +67,8 @@ const AppointmentForm = ({ hospital, onSuccess, onCancel }: AppointmentFormProps
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user } = useAuth();
   
+  console.log("AppointmentForm rendered, user:", user);
+  
   // Initialize form with react-hook-form
   const form = useForm<AppointmentFormValues>({
     resolver: zodResolver(formSchema),
@@ -88,17 +91,23 @@ const AppointmentForm = ({ hospital, onSuccess, onCancel }: AppointmentFormProps
     try {
       // Format the date and time
       const appointmentDateTime = new Date(data.date);
-      const [hours, minutes] = data.time.split(':');
-      const isPM = data.time.includes('PM');
-      let hour = parseInt(hours);
+      const timeParts = data.time.match(/(\d+):(\d+)\s*([APap][Mm])/);
       
-      if (isPM && hour !== 12) {
-        hour += 12;
-      } else if (!isPM && hour === 12) {
-        hour = 0;
+      if (!timeParts) {
+        throw new Error("Invalid time format");
       }
       
-      appointmentDateTime.setHours(hour, parseInt(minutes));
+      let hours = parseInt(timeParts[1]);
+      const minutes = parseInt(timeParts[2]);
+      const period = timeParts[3].toUpperCase();
+      
+      if (period === "PM" && hours !== 12) {
+        hours += 12;
+      } else if (period === "AM" && hours === 12) {
+        hours = 0;
+      }
+      
+      appointmentDateTime.setHours(hours, minutes, 0, 0);
       
       // Save appointment to Supabase
       const { error } = await supabase
@@ -135,7 +144,7 @@ const AppointmentForm = ({ hospital, onSuccess, onCancel }: AppointmentFormProps
         <p className="text-muted-foreground mb-6">
           Please sign in or create an account to book an appointment at {hospital.name}
         </p>
-        <AuthForm />
+        <AuthForm onComplete={onSuccess} />
       </div>
     );
   }

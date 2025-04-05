@@ -34,8 +34,10 @@ const AuthForm = ({ onComplete }: AuthFormProps) => {
     setIsLoading(true);
     try {
       await signIn(email, password);
+      console.log("Sign in successful");
       if (onComplete) onComplete();
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Sign in error:", error);
       // Error is already handled in the auth context
     } finally {
       setIsLoading(false);
@@ -57,8 +59,10 @@ const AuthForm = ({ onComplete }: AuthFormProps) => {
     setIsLoading(true);
     try {
       await signUp(email, password);
+      console.log("Sign up successful");
       if (onComplete) onComplete();
-    } catch (error) {
+    } catch (error: any) {
+      console.error("Sign up error:", error);
       // Error is already handled in the auth context
     } finally {
       setIsLoading(false);
