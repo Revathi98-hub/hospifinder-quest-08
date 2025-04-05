@@ -1,6 +1,6 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { User } from '@supabase/supabase-js';
+import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string): Promise<void> => {
     try {
       const { error, data } = await supabase.auth.signInWithPassword({ email, password });
       
@@ -67,13 +67,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
       
       toast.success('Signed in successfully');
-      return data;
+      // We're not returning data anymore, just handling the side effects
     } catch (error: any) {
       throw error;
     }
   };
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string): Promise<void> => {
     try {
       // Set redirectTo to current window location to handle redirection after email verification
       const { error, data } = await supabase.auth.signUp({ 
@@ -92,14 +92,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         toast.success('Account created successfully');
       }
       
-      return data;
+      // Not returning data anymore, just handling the side effects
     } catch (error: any) {
       toast.error(error.message || 'Error signing up');
       throw error;
     }
   };
 
-  const signOut = async () => {
+  const signOut = async (): Promise<void> => {
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
