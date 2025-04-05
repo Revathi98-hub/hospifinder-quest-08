@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
 
 interface ReviewFormProps {
   hospitalId: string;
@@ -50,7 +50,6 @@ const ReviewForm = ({ hospitalId, onSubmit, onCancel }: ReviewFormProps) => {
           user_id: user.id,
           rating,
           comment,
-          created_at: new Date().toISOString(),
         });
         
       if (error) throw error;

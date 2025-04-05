@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,7 +8,7 @@ import { Hospital } from "@/components/HospitalCard";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Form,
   FormControl,
@@ -113,8 +112,7 @@ const AppointmentForm = ({ hospital, onSuccess, onCancel }: AppointmentFormProps
           department: data.department,
           appointment_date: appointmentDateTime.toISOString(),
           notes: data.notes || null,
-          status: 'pending',
-          created_at: new Date().toISOString(),
+          status: 'pending'
         });
         
       if (error) throw error;
