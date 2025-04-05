@@ -364,6 +364,7 @@ const HospitalDetail = () => {
               {showReviewForm && (
                 <div className="glass p-6 rounded-xl mb-6">
                   <ReviewForm 
+                    hospitalId={id || ''} 
                     onSubmit={handleSubmitReview}
                     onCancel={() => setShowReviewForm(false)}
                   />
