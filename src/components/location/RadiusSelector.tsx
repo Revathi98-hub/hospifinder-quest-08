@@ -24,7 +24,7 @@ const RadiusSelector = ({ searchRadius, onRadiusChange }: RadiusSelectorProps) =
         defaultValue={[searchRadius]}
         value={[searchRadius]}
         min={1}
-        max={20}
+        max={10}
         step={1}
         onValueChange={onRadiusChange}
         className="max-w-xs mx-auto"
